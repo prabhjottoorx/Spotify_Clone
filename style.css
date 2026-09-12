@@ -1,0 +1,1193 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+} 
+ 
+body { 
+    background: #000; 
+    color: white; 
+    font-family: Arial, Helvetica, sans-serif; 
+    overflow: hidden; 
+} 
+ 
+ 
+/* =========================
+   NAVBAR
+   ========================= */
+ 
+.navbar { 
+    height: 72px; 
+    width: 100%; 
+    background: #000; 
+ 
+    display: flex; 
+    align-items: center; 
+ 
+    padding: 8px 24px; 
+ 
+    gap: 12px; 
+} 
+ 
+ 
+/* BeatBox logo */ 
+ 
+.logo { 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
+    background: #222; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 30px; 
+} 
+ 
+ 
+/* Home button */ 
+ 
+.home-btn { 
+    width: 48px; 
+    height: 48px; 
+ 
+    border: none; 
+    border-radius: 50%; 
+ 
+    background: #1f1f1f; 
+    color: white; 
+ 
+    font-size: 21px; 
+ 
+    cursor: pointer; 
+} 
+ 
+ 
+/* Search */ 
+ 
+.search-box { 
+    width: 535px; 
+    height: 48px; 
+ 
+    background: #1f1f1f; 
+ 
+    border-radius: 25px; 
+ 
+    display: flex; 
+    align-items: center; 
+ 
+    padding: 0 15px; 
+ 
+    gap: 15px; 
+} 
+ 
+.search-box i { 
+    color: #b3b3b3; 
+    font-size: 20px; 
+} 
+ 
+.search-box input { 
+    flex: 1; 
+ 
+    background: transparent; 
+ 
+    border: none; 
+    outline: none; 
+ 
+    color: white; 
+ 
+    font-size: 16px; 
+} 
+ 
+.search-box input::placeholder { 
+    color: #b3b3b3; 
+} 
+ 
+ 
+/* =========================
+   NAVBAR LINKS
+   ========================= */
+ 
+.nav-links { 
+    margin-left: auto; 
+ 
+    display: flex; 
+    align-items: center; 
+ 
+    gap: 18px; 
+} 
+ 
+.nav-links a { 
+    color: #b3b3b3; 
+ 
+    text-decoration: none; 
+ 
+    font-weight: bold; 
+} 
+ 
+.nav-links a:hover { 
+    color: white; 
+} 
+ 
+.line { 
+    height: 25px; 
+    width: 1px; 
+ 
+    background: #aaa; 
+ 
+    margin: 0 5px; 
+} 
+ 
+.login-btn { 
+    background: white; 
+    color: black; 
+ 
+    border: none; 
+ 
+    padding: 15px 27px; 
+ 
+    border-radius: 30px; 
+ 
+    font-size: 15px; 
+    font-weight: bold; 
+ 
+    cursor: pointer; 
+} 
+
+
+/* =========================
+   MOBILE ACTIONS
+   ========================= */
+
+.mobile-actions {
+    display: none;
+}
+
+
+/* HAMBURGER BUTTON */
+
+.hamburger {
+    display: none;
+
+    background: #181818;
+    border: none;
+
+    color: white;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* HAMBURGER DROPDOWN */
+
+.hamburger-menu {
+    display: none;
+}
+
+
+/* =========================
+   LAYOUT
+   ========================= */
+ 
+.layout { 
+    height: calc(100vh - 72px); 
+ 
+    display: flex; 
+ 
+    gap: 8px; 
+ 
+    padding: 0 8px 85px 8px; 
+} 
+ 
+ 
+/* =========================
+   SIDEBAR
+   ========================= */
+ 
+.sidebar { 
+    width: 360px; 
+ 
+    background: #121212; 
+ 
+    border-radius: 8px; 
+ 
+    padding: 18px 10px; 
+ 
+    position: relative; 
+ 
+    flex-shrink: 0; 
+} 
+ 
+.library-header { 
+    display: flex; 
+ 
+    align-items: center; 
+    justify-content: space-between; 
+ 
+    padding: 5px 14px 20px; 
+} 
+ 
+.library-header h3 { 
+    font-size: 16px; 
+} 
+ 
+.create-btn { 
+    background: #242424; 
+ 
+    color: white; 
+ 
+    border: none; 
+ 
+    border-radius: 25px; 
+ 
+    padding: 12px 18px; 
+ 
+    font-weight: bold; 
+ 
+    font-size: 15px; 
+ 
+    cursor: pointer; 
+} 
+ 
+.create-btn i { 
+    margin-right: 7px; 
+} 
+ 
+ 
+/* Side boxes */ 
+ 
+.side-box { 
+    background: #202020; 
+ 
+    margin: 10px 0; 
+ 
+    padding: 24px 22px; 
+ 
+    border-radius: 8px; 
+} 
+ 
+.side-box h3 { 
+    font-size: 16px; 
+ 
+    margin-bottom: 12px; 
+} 
+ 
+.side-box p { 
+    color: white; 
+ 
+    margin-bottom: 20px; 
+} 
+ 
+.side-box button { 
+    background: white; 
+ 
+    border: none; 
+ 
+    border-radius: 25px; 
+ 
+    padding: 11px 20px; 
+ 
+    font-weight: bold; 
+ 
+    cursor: pointer; 
+} 
+ 
+ 
+/* Sidebar footer */ 
+ 
+.create-playlist { 
+    background: #1ed760; 
+    color: black; 
+    border: none; 
+    padding: 12px 25px; 
+    border-radius: 25px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+} 
+ 
+.create-playlist:hover { 
+    transform: scale(1.05); 
+} 
+ 
+.side-footer { 
+    position: absolute; 
+ 
+    bottom: 15px; 
+ 
+    left: 25px; 
+    right: 25px; 
+} 
+ 
+.side-footer div { 
+    margin-bottom: 12px; 
+} 
+ 
+.side-footer a { 
+    color: #aaa; 
+ 
+    text-decoration: none; 
+ 
+    font-size: 13px; 
+ 
+    margin-right: 14px; 
+} 
+ 
+.side-footer a:hover { 
+    color: white; 
+} 
+ 
+.language { 
+    margin-top: 20px; 
+ 
+    padding: 9px 15px; 
+ 
+    background: transparent; 
+ 
+    border: 1px solid #777; 
+ 
+    border-radius: 20px; 
+ 
+    color: white; 
+ 
+    font-weight: bold; 
+} 
+ 
+ 
+/* =========================
+   CONTENT
+   ========================= */
+ 
+.content { 
+    flex: 1; 
+ 
+    background: #121212; 
+ 
+    border-radius: 8px; 
+ 
+    padding: 28px 35px; 
+ 
+    overflow-y: auto; 
+} 
+ 
+ 
+/* Scrollbar */ 
+ 
+.content::-webkit-scrollbar { 
+    width: 10px; 
+} 
+ 
+.content::-webkit-scrollbar-thumb { 
+    background: #555; 
+ 
+    border-radius: 10px; 
+} 
+ 
+ 
+/* Section */ 
+ 
+section { 
+    margin-bottom: 50px; 
+} 
+ 
+.section-header { 
+    display: flex; 
+ 
+    justify-content: space-between; 
+ 
+    align-items: center; 
+ 
+    margin-bottom: 22px; 
+} 
+ 
+.section-header h2 { 
+    font-size: 27px; 
+} 
+ 
+.section-header a { 
+    color: #aaa; 
+ 
+    text-decoration: none; 
+ 
+    font-weight: bold; 
+ 
+    font-size: 14px; 
+} 
+ 
+ 
+/* =========================
+   MUSIC CARDS
+   ========================= */
+ 
+.card-container { 
+    display: flex; 
+ 
+    gap: 25px; 
+ 
+    overflow-x: auto; 
+} 
+ 
+.card-container::-webkit-scrollbar { 
+    display: none; 
+} 
+ 
+.music-card { 
+    min-width: 195px; 
+ 
+    cursor: pointer; 
+ 
+    position: relative; 
+} 
+ 
+.image-box { 
+    position: relative; 
+} 
+ 
+.music-card img { 
+    width: 195px; 
+    height: 195px; 
+ 
+    object-fit: cover; 
+ 
+    border-radius: 7px; 
+ 
+    display: block; 
+} 
+ 
+.music-card h3 { 
+    font-size: 16px; 
+ 
+    margin-top: 12px; 
+ 
+    white-space: nowrap; 
+ 
+    overflow: hidden; 
+ 
+    text-overflow: ellipsis; 
+} 
+ 
+.music-card p { 
+    color: #aaa; 
+ 
+    font-size: 14px; 
+ 
+    line-height: 20px; 
+ 
+    margin-top: 7px; 
+ 
+    white-space: nowrap; 
+ 
+    overflow: hidden; 
+ 
+    text-overflow: ellipsis; 
+} 
+ 
+ 
+/* Play button */ 
+ 
+.play-btn { 
+    position: absolute; 
+ 
+    right: 8px; 
+    bottom: 8px; 
+ 
+    width: 50px; 
+    height: 50px; 
+ 
+    border-radius: 50%; 
+ 
+    border: none; 
+ 
+    background: #1ed760; 
+ 
+    color: black; 
+ 
+    font-size: 20px; 
+ 
+    cursor: pointer; 
+ 
+    opacity: 0; 
+ 
+    transform: translateY(10px); 
+ 
+    transition: 0.3s; 
+} 
+ 
+.music-card:hover .play-btn { 
+    opacity: 1; 
+ 
+    transform: translateY(0); 
+} 
+ 
+ 
+/* =========================
+   ARTISTS
+   ========================= */
+ 
+.artist-container { 
+    display: flex; 
+ 
+    gap: 30px; 
+ 
+    overflow-x: auto; 
+} 
+ 
+.artist-container::-webkit-scrollbar { 
+    display: none; 
+} 
+ 
+.artist-card { 
+    min-width: 195px; 
+ 
+    cursor: pointer; 
+} 
+ 
+.artist-card img { 
+    width: 195px; 
+    height: 195px; 
+ 
+    border-radius: 50%; 
+ 
+    object-fit: cover; 
+} 
+ 
+.artist-card h3 { 
+    margin-top: 12px; 
+ 
+    font-size: 16px; 
+} 
+ 
+.artist-card p { 
+    color: #aaa; 
+ 
+    margin-top: 7px; 
+} 
+ 
+ 
+/* =========================
+   RADIO
+   ========================= */
+ 
+.radio-container { 
+    display: flex; 
+ 
+    gap: 25px; 
+ 
+    overflow-x: auto; 
+} 
+ 
+.radio-container::-webkit-scrollbar { 
+    display: none; 
+} 
+ 
+.radio-card { 
+    min-width: 220px; 
+} 
+ 
+.radio-image { 
+    height: 220px; 
+ 
+    border-radius: 8px; 
+ 
+    position: relative; 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+    justify-content: center; 
+} 
+ 
+.radio-image span { 
+    position: absolute; 
+ 
+    top: 12px; 
+    right: 12px; 
+ 
+    font-weight: bold; 
+} 
+ 
+.radio-circle { 
+    width: 125px; 
+    height: 125px; 
+ 
+    border-radius: 50%; 
+ 
+    background: #222; 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+    justify-content: center; 
+ 
+    font-size: 50px; 
+} 
+ 
+.radio-one { 
+    background: #f6d36d; 
+} 
+ 
+.radio-two { 
+    background: #73d9cd; 
+} 
+ 
+.radio-three { 
+    background: #ff9b75; 
+} 
+ 
+.radio-four { 
+    background: #f48ca4; 
+} 
+ 
+.radio-card h3 { 
+    margin-top: 12px; 
+} 
+ 
+ 
+/* =========================
+   CHARTS
+   ========================= */
+ 
+.chart-container { 
+    display: flex; 
+ 
+    gap: 28px; 
+ 
+    overflow-x: auto; 
+} 
+ 
+.chart-container::-webkit-scrollbar { 
+    display: none; 
+} 
+ 
+.chart-card { 
+    min-width: 200px; 
+ 
+    height: 250px; 
+ 
+    padding: 25px; 
+ 
+    border-radius: 7px; 
+ 
+    display: flex; 
+ 
+    flex-direction: column; 
+ 
+    justify-content: space-between; 
+} 
+ 
+.chart-card h1 { 
+    font-size: 28px; 
+} 
+ 
+.chart-card span { 
+    color: #aaa; 
+} 
+ 
+.chart-card p { 
+    font-weight: bold; 
+} 
+ 
+.purple { 
+    background: #8b3ab1; 
+} 
+ 
+.red { 
+    background: #d32f16; 
+} 
+ 
+.blue { 
+    background: linear-gradient(#198c88, #17326d); 
+} 
+ 
+.green { 
+    background: linear-gradient(#c7c46a, #00704a); 
+} 
+ 
+ 
+/* =========================
+   FOOTER
+   ========================= */
+ 
+footer { 
+    border-top: 1px solid #333; 
+ 
+    padding: 55px 0; 
+ 
+    display: flex; 
+ 
+    gap: 130px; 
+ 
+    margin-top: 40px; 
+} 
+ 
+.footer-column { 
+    display: flex; 
+ 
+    flex-direction: column; 
+ 
+    gap: 15px; 
+} 
+ 
+.footer-column h3 { 
+    font-size: 15px; 
+} 
+ 
+.footer-column a { 
+    color: #aaa; 
+ 
+    text-decoration: none; 
+} 
+ 
+.footer-column a:hover { 
+    color: white; 
+} 
+ 
+ 
+/* =========================
+   SIGNUP BAR
+   ========================= */
+ 
+.signup-bar { 
+    position: fixed; 
+ 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+ 
+    height: 72px; 
+ 
+    background: linear-gradient( 
+        90deg, 
+        #c42aa5, 
+        #4f9df8 
+    ); 
+ 
+    display: flex; 
+ 
+    align-items: center; 
+ 
+    justify-content: space-between; 
+ 
+    padding: 10px 25px; 
+ 
+    z-index: 100; 
+} 
+ 
+.signup-bar strong { 
+    font-size: 15px; 
+} 
+ 
+.signup-bar p { 
+    margin-top: 6px; 
+ 
+    font-size: 16px; 
+} 
+ 
+.signup-bar button { 
+    background: white; 
+ 
+    border: none; 
+ 
+    border-radius: 25px; 
+ 
+    padding: 16px 28px; 
+ 
+    font-size: 15px; 
+ 
+    font-weight: bold; 
+ 
+    cursor: pointer; 
+} 
+
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+
+
+/* TABLET / SMALL LAPTOP */
+
+@media (max-width: 1100px) { 
+ 
+    .search-box { 
+        width: 350px; 
+    } 
+ 
+    .sidebar { 
+        width: 280px; 
+    } 
+ 
+    .nav-links { 
+        gap: 12px; 
+    } 
+ 
+    .content { 
+        padding: 25px; 
+    } 
+} 
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 800px) { 
+ 
+    .navbar { 
+        height: 65px; 
+        padding: 8px 15px; 
+        gap: 8px; 
+    } 
+ 
+    .logo { 
+        width: 45px; 
+        height: 45px; 
+        font-size: 24px; 
+    } 
+ 
+    .home-btn { 
+        width: 42px; 
+        height: 42px; 
+        font-size: 18px; 
+    } 
+ 
+    .search-box { 
+        flex: 1; 
+        width: auto; 
+        height: 42px; 
+    } 
+ 
+    .search-box input { 
+        font-size: 14px; 
+    } 
+ 
+    .sidebar { 
+        display: none; 
+    } 
+ 
+    .nav-links { 
+        display: none; 
+    } 
+ 
+    .hamburger { 
+        display: flex; 
+        margin-left: auto; 
+    } 
+ 
+    .layout { 
+        height: calc(100vh - 65px); 
+        padding: 0 5px 75px; 
+    } 
+ 
+    .content { 
+        width: 100%; 
+        padding: 25px 18px; 
+    } 
+ 
+    .section-header h2 { 
+        font-size: 24px; 
+    } 
+ 
+    .music-card { 
+        min-width: 170px; 
+    } 
+ 
+    .music-card img { 
+        width: 170px; 
+        height: 170px; 
+    } 
+ 
+    .artist-card { 
+        min-width: 170px; 
+    } 
+ 
+    .artist-card img { 
+        width: 170px; 
+        height: 170px; 
+    } 
+ 
+    footer { 
+        gap: 40px; 
+        flex-wrap: wrap; 
+    } 
+ 
+    .signup-bar { 
+        height: 65px; 
+        padding: 8px 15px; 
+    } 
+ 
+    .signup-bar p { 
+        display: none; 
+    } 
+ 
+    .signup-bar strong { 
+        font-size: 13px; 
+    } 
+ 
+    .signup-bar button { 
+        padding: 12px 20px; 
+        font-size: 13px; 
+    } 
+} 
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 550px) { 
+
+    .navbar { 
+        height: 60px; 
+        padding: 8px 10px; 
+        gap: 7px; 
+    } 
+ 
+    .logo { 
+        width: 40px; 
+        height: 40px; 
+        font-size: 21px; 
+    } 
+ 
+    .home-btn { 
+        display: none; 
+    } 
+ 
+    .search-box { 
+        width: 100%; 
+        height: 40px; 
+    } 
+ 
+    .search-box i { 
+        font-size: 16px; 
+    } 
+ 
+    .search-box input { 
+        font-size: 13px; 
+    }
+
+
+    /* MAIN */
+
+    .layout { 
+        height: calc(100vh - 60px); 
+        padding: 0; 
+    } 
+ 
+    .content { 
+        padding: 20px 12px 80px; 
+        border-radius: 0; 
+    } 
+ 
+    .section-header { 
+        margin-bottom: 15px; 
+    } 
+ 
+    .section-header h2 { 
+        font-size: 21px; 
+    } 
+ 
+    .section-header a { 
+        font-size: 12px; 
+    } 
+ 
+    .card-container { 
+        gap: 15px; 
+    } 
+ 
+    .music-card { 
+        min-width: 145px; 
+    } 
+ 
+    .music-card img { 
+        width: 145px; 
+        height: 145px; 
+    } 
+ 
+    .music-card h3 { 
+        font-size: 14px; 
+    } 
+ 
+    .music-card p { 
+        font-size: 12px; 
+    } 
+ 
+    .artist-container { 
+        gap: 15px; 
+    } 
+ 
+    .artist-card { 
+        min-width: 145px; 
+    } 
+ 
+    .artist-card img { 
+        width: 145px; 
+        height: 145px; 
+    } 
+ 
+    .artist-card h3 { 
+        font-size: 14px; 
+    } 
+ 
+    .artist-card p { 
+        font-size: 12px; 
+    } 
+ 
+    .radio-container { 
+        gap: 15px; 
+    } 
+ 
+    .radio-card { 
+        min-width: 160px; 
+    } 
+ 
+    .radio-image { 
+        height: 160px; 
+    } 
+ 
+    .radio-circle { 
+        width: 90px; 
+        height: 90px; 
+        font-size: 35px; 
+    } 
+ 
+    .chart-container { 
+        gap: 15px; 
+    } 
+ 
+    .chart-card { 
+        min-width: 160px; 
+        height: 210px; 
+        padding: 18px; 
+    } 
+ 
+    .chart-card h1 { 
+        font-size: 22px; 
+    } 
+ 
+    footer { 
+        flex-direction: column; 
+        gap: 25px; 
+        padding: 35px 10px; 
+    } 
+ 
+    .footer-column { 
+        gap: 10px; 
+    } 
+ 
+    .signup-bar { 
+        height: 60px; 
+        padding: 8px 10px; 
+    } 
+ 
+    .signup-bar strong { 
+        font-size: 12px; 
+    } 
+ 
+    .signup-bar button { 
+        padding: 10px 16px; 
+        font-size: 12px; 
+    } 
+} 
+
+
+/* =========================
+   VERY SMALL MOBILE
+   ========================= */
+
+@media (max-width: 360px) { 
+ 
+    .search-box input { 
+        font-size: 12px; 
+    } 
+ 
+    .mobile-actions {
+        gap: 5px;
+    }
+
+    .mobile-actions a {
+        font-size: 8px;
+    }
+
+    .mobile-actions .login-btn { 
+        padding: 9px 12px; 
+        font-size: 10px; 
+    } 
+
+    .hamburger {
+        width: 28px;
+        height: 28px;
+        font-size: 15px;
+    }
+ 
+    .music-card { 
+        min-width: 130px; 
+    } 
+ 
+    .music-card img { 
+        width: 130px; 
+        height: 130px; 
+    } 
+ 
+    .artist-card { 
+        min-width: 130px; 
+    } 
+ 
+    .artist-card img { 
+        width: 130px; 
+        height: 130px; 
+    } 
+ 
+    .section-header h2 { 
+        font-size: 19px; 
+    } 
+}
+/* ==========================================
+   HAMBURGER SLIDE-IN PANEL (all screen sizes;
+   only ever visible when .hamburger is shown
+   inside a @media query above)
+   ========================================== */
+
+.hamburger-menu {
+    position: fixed;
+    top: 60px; /* Below navigation bar */
+    right: -100%; /* Hidden off-screen initially */
+    width: 250px;
+    height: calc(100vh - 60px);
+    background-color: #121212;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+}
+
+/* Active class added via JS to slide the menu into view */
+.hamburger-menu.active {
+    right: 0;
+}
+
+.hamburger-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hamburger-menu a:hover {
+    color: #1ed760; 
+}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatBox Premium</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #121212;
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            background: #000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1ed760;
+        }
+
+        .back {
+            margin-left: auto;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* Main */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #b3b3b3;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        /* Name */
+        .name-box {
+            margin-bottom: 40px;
+        }
+
+        .name-box label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .name-box input {
+            width: 350px;
+            max-width: 90%;
+            padding: 14px;
+            border-radius: 5px;
+            border: 1px solid #777;
+            background: #242424;
+            color: white;
+            font-size: 16px;
+        }
+
+        .name-box input:focus {
+            outline: 2px solid #1ed760;
+        }
+
+        /* Plans */
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: left;
+        }
+
+        .plan {
+            background: #242424;
+            border-radius: 12px;
+            padding: 25px;
+            min-height: 420px;
+            border: 1px solid #444;
+        }
+
+        .plan:hover {
+            border: 1px solid #1ed760;
+            transform: translateY(-5px);
+            transition: 0.3s;
+        }
+
+        .plan h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .features li {
+            margin: 14px 0;
+            color: #ddd;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: #1ed760;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .choose {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 25px;
+            background: #1ed760;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .choose:hover {
+            background: #1fdf64;
+            transform: scale(1.03);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .plans {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .plans {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo">BeatBox</div>
+
+        <a href="index.html" class="back">
+            ← Back
+        </a>
+    </div>
+
+
+    <div class="container">
+
+        <h1>Choose your Premium plan</h1>
+
+        <p class="subtitle">
+            Listen without limits. Choose the plan that's right for you.
+        </p>
+
+        </div>
+
+
+        <!-- PLANS -->
+        <div class="plans">
+
+            <!-- FREE -->
+            <div class="plan">
+
+                <h2>Free</h2>
+
+                <div class="price">₹0 / month</div>
+
+                <ul class="features">
+                    <li>Ad-supported music</li>
+                    <li>Shuffle play</li>
+                    <li>Basic audio quality</li>
+                    <li>Limited skips</li>
+                </ul>
+
+                <button class="choose">
+                    Continue Free
+                </button>
+
+            </div>
+
+
+            <!-- STANDARD -->
+            <div class="plan">
+
+                <h2>Premium Standard</h2>
+
+                <div class="price">₹139 / month</div>
+
+                <ul class="features">
+                    <li>Ad-free music</li>
+                    <li>Download music</li>
+                    <li>Very high audio quality</li>
+                    <li>Play songs in any order</li>
+                </ul>
+
+                <button class="choose">
+                    Get Standard
+                </button>
+
+            </div>
+
+
+            <!-- PLATINUM -->
+            <div class="plan">
+
+                <h2>Premium Platinum</h2>
+
+                <div class="price">₹299 / month</div>
+
+                <ul class="features">
+                    <li>Everything in Standard</li>
+                    <li>Lossless audio</li>
+                    <li>AI DJ</li>
+                    <li>AI playlist creation</li>
+                </ul>
+
+                <button class="choose">
+                    Get Platinum
+                </button>
+
+            </div>
+
+
+            <!-- STUDENT -->
+            <div class="plan">
+
+                <h2>Premium Student</h2>
+
+                <div class="price">₹69 / month</div>
+
+                <ul class="features">
+                    <li>Ad-free music</li>
+                    <li>Download music</li>
+                    <li>Very high audio quality</li>
+                    <li>Student discount</li>
+                </ul>
+
+                <button class="choose">
+                    Get Student
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
