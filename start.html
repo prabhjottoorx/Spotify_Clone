@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open BeatBox</title>
+
+    <style>git status
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: black;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* Main content */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+
+            z-index: 2;
+        }
+
+        /* Logo */
+        .logo {
+            width: 110px;
+            height: 110px;
+
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 55px;
+        }
+
+        /* Button */
+        .open-btn {
+            padding: 15px 40px;
+
+            background-color: #1DB954;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 30px;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .open-btn:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Your logo -->
+        <div class="logo">
+            🎧
+        </div>
+
+        <!-- Button -->
+        <a href="loading.html" class="open-btn">
+            Open BeatBox
+        </a>
+
+    </div>
+
+</body>
+</html>
