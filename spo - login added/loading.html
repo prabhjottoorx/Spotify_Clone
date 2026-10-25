@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="refresh" content="4; url=index.html">
+
+    <title>Loading BeatBox</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #333;
+            border-top: 6px solid #1DB954;
+            border-radius: 50%;
+
+            animation: spin 1s linear infinite;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+
+<body>
+
+    <img src="logo.svg" alt="BeatBox" width="72" height="72" style="margin-bottom:24px" />
+    <div class="loader" role="status" aria-label="Loading"></div>
+
+    <h2>Loading BeatBox...</h2>
+
+</body>
+</html>

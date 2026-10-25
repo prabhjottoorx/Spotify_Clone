@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support - BeatBox</title>
+  <style>
+    :root {
+      --black: #000;
+      --bg: #121212;
+      --panel: #2a2a2a;
+      --line: #333;
+      --text: #fff;
+      --muted: #b3b3b3;
+      --green: #1ed760;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    /* ---------- Navbar ---------- */
+    .navbar {
+      height: 90px;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      padding: 0 62px;
+      gap: 42px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+    .brand-icon { width: 44px; height: 44px; flex: none; }
+    .nav-links { display: flex; gap: 30px; }
+    .nav-links a, .nav-right a { font-size: 18px; font-weight: 700; }
+    .nav-links a:hover, .nav-right a:not(.login-btn):hover { color: var(--green); }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 30px; }
+    .globe { width: 22px; height: 22px; display: block; }
+    .login-btn {
+      background: var(--green);
+      color: #000;
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      border-radius: 30px;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .login-btn:hover { background: #3be477; transform: scale(1.04); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 80px 20px 40px;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 68px;
+      font-weight: 800;
+      letter-spacing: -2.5px;
+      line-height: 1.1;
+      margin-bottom: 62px;
+    }
+    .ask-wrap { position: relative; width: 745px; max-width: 100%; margin: 0 auto; text-align: left; }
+    .ask-wrap::before {
+      content: "";
+      position: absolute;
+      left: 50%; top: -90px;
+      width: 130%; height: 260px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at 40% 50%, rgba(30,215,96,.18), rgba(37,99,235,.28) 45%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .ask-box {
+      position: relative;
+      z-index: 1;
+      height: 146px;
+      background: var(--bg);
+      border: 2px solid #fff;
+      border-radius: 24px;
+      padding: 22px 30px;
+    }
+    .ask-box textarea {
+      width: 100%;
+      height: 60px;
+      background: transparent;
+      border: none;
+      outline: none;
+      resize: none;
+      color: #fff;
+      font: inherit;
+      font-size: 20px;
+    }
+    .ask-box textarea::placeholder { color: var(--muted); }
+    .ask-btn {
+      position: absolute;
+      right: 30px; bottom: 20px;
+      width: 70px; height: 40px;
+      border: none;
+      border-radius: 20px;
+      background: var(--panel);
+      color: #555;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: not-allowed;
+    }
+    .ask-btn.ready { background: #fff; color: #000; cursor: pointer; }
+    .ai-note { position: relative; z-index: 1; margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+    /* ---------- Containers ---------- */
+    .container { width: 745px; max-width: 100%; margin: 0 auto; padding: 0 20px; }
+    @media (min-width: 800px) { .container { padding: 0; } }
+
+    /* ---------- Browse help articles ---------- */
+    .browse { padding: 40px 0 70px; }
+    .browse h2, .quick h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 28px; }
+    details.cat { border-bottom: 1px solid var(--line); }
+    details.cat:first-of-type { border-top: 0; }
+    details.cat summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 86px;
+      padding: 0 30px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      cursor: pointer;
+    }
+    details.cat summary::-webkit-details-marker { display: none; }
+    details.cat summary:hover { background: #1a1a1a; }
+    .cat-icon { width: 22px; height: 22px; color: var(--green); flex: none; }
+    .chev { margin-left: auto; width: 20px; height: 20px; transition: transform .2s ease; }
+    details[open] .chev { transform: rotate(180deg); }
+    .cat-body { padding: 4px 30px 30px 70px; display: grid; gap: 26px; }
+    .cat-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .cat-body ul { list-style: none; display: grid; gap: 10px; }
+    .cat-body li a { font-size: 15px; color: var(--muted); }
+    .cat-body li a:hover { color: #fff; text-decoration: underline; }
+
+    /* ---------- Quick help ---------- */
+    .quick { background: var(--panel); padding: 56px 0 50px; }
+    .quick ul { list-style: none; }
+    .quick li a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      font-size: 18px;
+    }
+    .quick li a:hover { text-decoration: underline; }
+    .quick li svg { width: 20px; height: 20px; color: var(--muted); }
+
+    /* ---------- Community ---------- */
+    .community { background: var(--bg); text-align: center; padding: 80px 20px; }
+    .community h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 14px; }
+    .community p { color: var(--muted); font-size: 17px; margin-bottom: 28px; }
+    .community a.btn {
+      display: inline-block;
+      border: 1px solid #727272;
+      border-radius: 30px;
+      padding: 16px 34px;
+      font-weight: 700;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .community a.btn:hover { border-color: #fff; transform: scale(1.04); }
+
+    /* ---------- Footer ---------- */
+    footer { background: var(--black); padding: 64px 62px 40px; }
+    .foot-top { display: flex; gap: 60px; flex-wrap: wrap; }
+    .foot-top .brand-icon { width: 40px; height: 40px; }
+    .foot-cols { display: flex; gap: 70px; flex-wrap: wrap; flex: 1; }
+    .foot-cols h4 { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 18px; }
+    .foot-cols ul { list-style: none; display: grid; gap: 14px; }
+    .foot-cols a { font-size: 16px; font-weight: 700; }
+    .foot-cols a:hover { color: var(--green); text-decoration: underline; }
+    .foot-bottom {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 28px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .foot-bottom a:hover { color: #fff; text-decoration: underline; }
+    .foot-bottom .copy { margin-left: auto; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .navbar { padding: 0 24px; }
+      footer { padding: 48px 24px 32px; }
+    }
+    @media (max-width: 600px) {
+      .navbar { height: 72px; }
+      .brand { font-size: 26px; }
+      .brand-icon { width: 36px; height: 36px; }
+      .nav-right { gap: 18px; }
+      .nav-right a { font-size: 16px; }
+      .login-btn { height: 48px; padding: 0 24px; }
+      .globe { display: none; }
+      .hero { padding: 50px 20px 30px; }
+      .hero h1 { font-size: 42px; letter-spacing: -1.5px; margin-bottom: 40px; }
+      details.cat summary { padding: 0 8px; height: 76px; font-size: 18px; }
+      .cat-body { padding: 0 8px 24px 8px; }
+      .foot-bottom .copy { margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
+  
+    /* ---------- Logged-in profile button ---------- */
+    .prof { position: relative; }
+    .prof > button { width: 48px; height: 48px; border-radius: 50%; border: none; background: #1ed760; color: #000; font-size: 19px; font-weight: 800; cursor: pointer; }
+    .prof > button:hover { transform: scale(1.06); }
+    .prof-menu { position: absolute; right: 0; top: 60px; width: 240px; background: #282828; border-radius: 6px; padding: 4px; z-index: 60; box-shadow: 0 16px 40px rgba(0,0,0,.6); }
+    .prof-menu .who { padding: 10px 12px 8px; font-size: 12px; color: #b3b3b3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .prof-menu a, .prof-menu button { display: flex; width: 100%; padding: 12px; background: none; border: none; border-radius: 3px; color: #fff; font: inherit; font-size: 14px; font-weight: 400; text-align: left; cursor: pointer; }
+    .prof-menu a:hover, .prof-menu button:hover { background: #3e3e3e; color: #fff; }
+    .prof-menu hr { border: 0; border-top: 1px solid #3e3e3e; margin: 4px 0; }
+    .nav-right a.hidden-link { display: none; }
+
+    /* ---------- Ask answer ---------- */
+    .ask-box textarea::placeholder { color: var(--muted); }
+    .answer { position: relative; z-index: 1; margin-top: 22px; background: #1f1f1f; border-radius: 16px; padding: 24px; text-align: left; }
+    .answer h3 { font-size: 20px; margin-bottom: 8px; }
+    .answer p { color: #d6d6d6; font-size: 15px; line-height: 1.55; margin-bottom: 12px; }
+    .answer ol { margin: 0 0 14px 22px; color: #d6d6d6; font-size: 15px; line-height: 1.6; }
+    .answer .more { display: inline-block; background: #fff; color: #000; font-weight: 700; font-size: 14px; border-radius: 20px; padding: 10px 20px; margin-right: 10px; }
+    .answer .rel { margin-top: 16px; font-size: 14px; color: var(--muted); }
+    .answer .rel a { color: #fff; text-decoration: underline; display: block; margin-top: 6px; }
+    .dots span { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: #b3b3b3; animation: blink 1s infinite; }
+    .dots span:nth-child(2) { animation-delay: .2s; } .dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+
+    /* ---------- Sub pages ---------- */
+    .sub { width: 745px; max-width: 100%; margin: 0 auto; padding: 40px 20px 90px; min-height: 60vh; }
+    .minisearch { display: flex; gap: 10px; margin-bottom: 30px; }
+    .minisearch input { flex: 1; min-width: 0; height: 48px; background: #2a2a2a; border: 1px solid transparent; border-radius: 24px; color: #fff; padding: 0 20px; font-size: 15px; }
+    .minisearch input:focus { outline: none; border-color: #fff; }
+    .minisearch button, .btn { height: 48px; border: none; border-radius: 24px; background: #1ed760; color: #000; font-weight: 700; font-size: 15px; padding: 0 26px; cursor: pointer; display: inline-flex; align-items: center; }
+    .btn:hover, .minisearch button:hover { background: #3be477; }
+    .btn.ghost { background: transparent; color: #fff; border: 1px solid #727272; }
+    .crumbs { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+    .crumbs a { color: var(--muted); text-decoration: underline; } .crumbs a:hover { color: #fff; }
+    .sub h1 { font-size: 40px; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px; }
+    .lead { color: #d6d6d6; font-size: 18px; line-height: 1.5; margin-bottom: 26px; }
+    .steps { margin: 0 0 20px 24px; display: grid; gap: 14px; font-size: 16px; line-height: 1.6; color: #e6e6e6; }
+    .steps a, .note a, .lead a { color: #1ed760; text-decoration: underline; }
+    .note { background: #1f1f1f; border-left: 4px solid #1ed760; border-radius: 6px; padding: 14px 18px; color: #d6d6d6; font-size: 15px; line-height: 1.55; margin-bottom: 26px; }
+    .helpful { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 30px 0; }
+    .helpful button { height: 40px; border-radius: 20px; background: transparent; border: 1px solid #727272; color: #fff; padding: 0 20px; cursor: pointer; font-weight: 700; }
+    .helpful button:hover { border-color: #fff; }
+    .sub h2 { font-size: 22px; margin: 28px 0 14px; letter-spacing: -.5px; }
+    .alist { list-style: none; }
+    .alist a { display: block; padding: 16px 4px; border-bottom: 1px solid var(--line); }
+    .alist a:hover strong { text-decoration: underline; }
+    .alist .req { display: block; padding: 16px 4px; border-bottom: 1px solid var(--line); }
+    .globe-wrap { display: inline-flex; color: #fff; }
+    .alist strong { display: block; font-size: 17px; margin-bottom: 4px; }
+    .alist span { color: var(--muted); font-size: 14px; }
+    .still { margin-top: 40px; background: #1f1f1f; border-radius: 16px; padding: 26px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .still h3 { font-size: 19px; }
+    .form-row { margin-bottom: 18px; }
+    .form-row label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .form-row input, .form-row select, .form-row textarea { width: 100%; background: #121212; color: #fff; border: 1px solid #727272; border-radius: 6px; padding: 12px 14px; font: inherit; font-size: 15px; }
+    .form-row textarea { min-height: 150px; resize: vertical; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: #fff; }
+    .form-row .bad { border-color: #f15e6c; }
+    .err { color: #f15e6c; font-size: 13px; margin-top: 6px; display: none; } .err.show { display: block; }
+    .ok-box { background: #14301f; border: 1px solid #1ed760; border-radius: 12px; padding: 22px; margin-bottom: 20px; }
+    .ticket { font-weight: 800; letter-spacing: 1px; }
+    .demo-note { font-size: 13px; color: var(--muted); margin-top: 14px; }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 8px 26px; justify-content: center; margin-bottom: 18px; }
+    .foot-links a { color: #b3b3b3; font-size: 14px; } .foot-links a:hover { color: #fff; text-decoration: underline; }
+    @media (max-width: 768px) { .sub h1 { font-size: 32px; } .prof-menu { right: -8px; } }
+  </style>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand" aria-label="BeatBox home">
+      <img class="brand-icon" src="logo.svg" alt="" width="44" height="44" />
+      <span>BeatBox</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="premium.html">Explore Premium</a>
+      <a href="download.html">Install App</a>
+    </div>
+
+    <div class="nav-right">
+      <span class="globe-wrap" role="img" aria-label="Country: India, language: English" title="India (English)">
+        <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c3 3 4.5 6.5 4.5 10S15 19 12 22c-3-3-4.5-6.5-4.5-10S9 5 12 2z"/>
+        </svg>
+      </span>
+      <a href="signup.html" id="navSignup">Sign up</a>
+      <a href="login.html" class="login-btn" id="navLogin">Log in</a>
+      <div class="prof" id="navProf" hidden>
+        <button type="button" id="profBtn" aria-haspopup="true" aria-expanded="false" aria-label="Profile menu"><span id="profInit"></span></button>
+        <div class="prof-menu" id="profMenu" role="menu" hidden>
+          <div class="who" id="profWho"></div>
+          <a href="account.html" role="menuitem">Account</a>
+          <a href="index.html#profile" role="menuitem">Profile</a>
+          <a href="premium.html" role="menuitem" id="profPremium">Upgrade to Premium</a>
+          <a href="support.html" role="menuitem">Support</a>
+          <a href="download.html" role="menuitem">Download</a>
+          <hr />
+          <button type="button" role="menuitem" id="profLogout">Log out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="view"></main>
+
+  <footer>
+    <div class="foot-links">
+      <a href="about.html">About</a><a href="info.html?page=jobs">Jobs</a><a href="info.html?page=legal">Legal</a>
+      <a href="info.html?page=privacy">Privacy Policy</a><a href="info.html?page=cookies">Cookies</a><a href="info.html?page=accessibility">Accessibility</a>
+    </div>
+    <strong>BeatBox Support</strong><br /><br />
+    © 2026 BeatBox. A student project inspired by Spotify.
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="help-data.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const view = $("view");
+    const H = window.HELP;
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    // **bold** and [text](link) inside help text (links must be local pages)
+    const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) => /^(https?:|javascript:)/i.test(u) ? t : '<a href="' + u + '">' + t + "</a>");
+    const link = (id) => "support.html?a=" + id;
+
+    // ---------- navbar: logged-in profile button ----------
+    (function () {
+      const acc = window.Auth && Auth.current();
+      if (!acc) return;
+      $("navSignup").style.display = "none";
+      $("navLogin").style.display = "none";
+      $("navProf").hidden = false;
+      $("profInit").textContent = (acc.name || acc.email).charAt(0).toUpperCase();
+      $("profWho").textContent = acc.name + " · " + Auth.planName(acc);
+      if (acc.plan && acc.plan !== "free") { $("profPremium").textContent = "Manage plan"; $("profPremium").href = "account.html"; }
+      const menu = $("profMenu"), btn = $("profBtn");
+      btn.addEventListener("click", (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; btn.setAttribute("aria-expanded", String(!menu.hidden)); });
+      document.addEventListener("click", (e) => { if (!menu.contains(e.target)) { menu.hidden = true; btn.setAttribute("aria-expanded", "false"); } });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") menu.hidden = true; });
+      $("profLogout").addEventListener("click", () => { if (confirm("Do you want to log out of BeatBox?")) { Auth.logout(); location.reload(); } });
+    })();
+
+    // ---------- views ----------
+    const chev = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+    const ico = (p) => '<svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + "</svg>";
+    const ICONS = {
+      payments: ico('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>'),
+      account: ico('<circle cx="12" cy="7.5" r="3.5"/><path d="M5 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2"/>'),
+      premium: ico('<path d="M4 7h11M4 12h16M4 17h8"/><circle cx="18" cy="7" r="2"/><circle cx="16" cy="17" r="2"/>'),
+      features: ico('<g fill="currentColor" stroke="none"><circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></g>'),
+      devices: ico('<rect x="3" y="4" width="11" height="16" rx="2"/><rect x="14" y="9" width="7" height="11" rx="1.5"/><circle cx="8.5" cy="14" r="2"/>'),
+      safety: ico('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+    };
+
+    function miniSearch(q) {
+      return '<form class="minisearch" action="support.html" method="get" role="search"><input name="q" value="' + esc(q || "") + '" placeholder="Search for help" aria-label="Search for help" /><button type="submit">Search</button></form>';
+    }
+    const stillNeedHelp = '<div class="still"><div><h3>Still need help?</h3><p style="color:#b3b3b3;font-size:14px;margin-top:4px">Send us a message and we’ll get back to you.</p></div><a class="btn" href="support.html?contact=1">Contact us</a></div>';
+
+    function homeView() {
+      document.title = "Support - BeatBox";
+      view.innerHTML = `
+      <section class="hero">
+        <h1>BeatBox Support</h1>
+        <div class="ask-wrap">
+          <form class="ask-box" id="askForm">
+            <textarea id="askInput" placeholder="What can I help with?" aria-label="What can I help with?"></textarea>
+            <button type="submit" id="askBtn" class="ask-btn" disabled>Ask</button>
+          </form>
+          <p class="ai-note">Answers are matched from BeatBox help articles.</p>
+          <div class="answer" id="answer" hidden aria-live="polite"></div>
+        </div>
+      </section>
+      <section class="browse"><div class="container">
+        <h2>Browse help articles</h2>
+        <div id="categories">${H.cats.map((c) => `
+          <details class="cat"><summary>${ICONS[c.id]}<span>${c.title}</span>${chev}</summary>
+          <div class="cat-body">${c.sections.map(([h, ids]) => `<div><h3>${h}</h3><ul>${ids.map((i) => `<li><a href="${link(i)}">${esc(H.byId[i].title)}</a></li>`).join("")}</ul></div>`).join("")}
+          <div><ul><li><a href="support.html?cat=${c.id}">See all in ${c.title}</a></li></ul></div></div></details>`).join("")}
+        </div>
+      </div></section>
+      <section class="quick"><div class="container"><h2>Quick help</h2>
+        <ul>${H.QUICK.map((i) => `<li><a href="${link(i)}"><span>${esc(H.byId[i].title)}</span>${chevR}</a></li>`).join("")}</ul>
+      </div></section>
+      <section class="community"><h2>Can’t find what you need?</h2><p>Send our team a message and we’ll help you out.</p><a class="btn" href="support.html?contact=1">Contact us</a></section>`;
+
+      document.querySelectorAll("details.cat").forEach((d) => d.addEventListener("toggle", () => {
+        if (d.open) document.querySelectorAll("details.cat[open]").forEach((o) => { if (o !== d) o.open = false; });
+      }));
+
+      const input = $("askInput"), btn = $("askBtn"), box = $("answer");
+      input.addEventListener("input", () => { const has = input.value.trim().length > 0; btn.disabled = !has; btn.classList.toggle("ready", has); });
+      input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("askForm").requestSubmit(); } });
+      $("askForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const q = input.value.trim();
+        if (!q) return;
+        box.hidden = false;
+        box.innerHTML = '<div class="dots" role="status" aria-label="Looking for an answer"><span></span><span></span><span></span></div>';
+        setTimeout(() => { box.innerHTML = answerHtml(q); }, 500);
+      });
+    }
+
+    function answerHtml(q) {
+      const res = H.search(q);
+      if (!res.length || res[0].score < 5) {
+        return '<h3>I couldn’t find an answer to that</h3><p>Try different words, browse the topics below, or send us a message.</p><a class="more" href="support.html?q=' + encodeURIComponent(q) + '">Search articles</a><a class="more" href="support.html?contact=1">Contact us</a>';
+      }
+      const a = res[0].a;
+      const rel = res.slice(1, 4).filter((r) => r.score >= 4);
+      return `<h3>${esc(a.title)}</h3><p>${fmt(a.summary)}</p><ol>${a.steps.slice(0, 4).map((s) => "<li>" + fmt(s) + "</li>").join("")}</ol>
+        <a class="more" href="${link(a.id)}">Read the full article</a>
+        ${rel.length ? '<div class="rel">Related articles' + rel.map((r) => `<a href="${link(r.a.id)}">${esc(r.a.title)}</a>`).join("") + "</div>" : ""}`;
+    }
+
+    function articleView(id) {
+      const a = H.byId[id];
+      if (!a) return notFound();
+      const c = H.catOf(a.cat);
+      document.title = a.title + " - BeatBox Support";
+      const voted = localStorage.getItem("beatboxHelpVote:" + id);
+      view.innerHTML = `<div class="sub">${miniSearch()}
+        <div class="crumbs"><a href="support.html">Support</a> › <a href="support.html?cat=${c.id}">${c.title}</a></div>
+        <h1>${esc(a.title)}</h1><p class="lead">${fmt(a.summary)}</p>
+        <ol class="steps">${a.steps.map((s) => "<li>" + fmt(s) + "</li>").join("")}</ol>
+        ${a.note ? '<p class="note">' + fmt(a.note) + "</p>" : ""}
+        <div class="helpful" id="helpful">${voted ? "Thanks for your feedback." : 'Was this article helpful? <button data-v="yes">Yes</button><button data-v="no">No</button>'}</div>
+        ${a.related.length ? "<h2>Related articles</h2><ul class=\"alist\">" + a.related.map((r) => `<li><a href="${link(r)}"><strong>${esc(H.byId[r].title)}</strong><span>${esc(H.byId[r].summary)}</span></a></li>`).join("") + "</ul>" : ""}
+        ${stillNeedHelp}</div>`;
+      $("helpful").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-v]");
+        if (!b) return;
+        try { localStorage.setItem("beatboxHelpVote:" + id, b.dataset.v); } catch (x) {}
+        $("helpful").innerHTML = b.dataset.v === "yes" ? "Great, thanks for letting us know!" : 'Sorry about that. <a class="btn ghost" href="support.html?contact=1" style="margin-left:8px">Contact us</a>';
+      });
+    }
+
+    function categoryView(id) {
+      const c = H.catOf(id);
+      if (!c) return notFound();
+      document.title = c.title + " - BeatBox Support";
+      view.innerHTML = `<div class="sub">${miniSearch()}<div class="crumbs"><a href="support.html">Support</a> › ${c.title}</div><h1>${c.title}</h1>
+        ${c.sections.map(([h, ids]) => `<h2>${h}</h2><ul class="alist">${ids.map((i) => `<li><a href="${link(i)}"><strong>${esc(H.byId[i].title)}</strong><span>${esc(H.byId[i].summary)}</span></a></li>`).join("")}</ul>`).join("")}
+        ${stillNeedHelp}</div>`;
+    }
+
+    function searchView(q) {
+      const res = H.search(q);
+      document.title = "Search - BeatBox Support";
+      view.innerHTML = `<div class="sub">${miniSearch(q)}<h1>${res.length ? res.length + (res.length === 1 ? " result" : " results") : "No results"} for “${esc(q)}”</h1>
+        ${res.length ? '<ul class="alist">' + res.slice(0, 15).map((r) => `<li><a href="${link(r.a.id)}"><strong>${esc(r.a.title)}</strong><span>${esc(r.a.summary)}</span></a></li>`).join("") + "</ul>"
+          : '<p class="lead">Try different words, or browse the topics on the <a href="support.html" style="color:#1ed760">support home page</a>.</p>'}
+        ${stillNeedHelp}</div>`;
+    }
+
+    function notFound() {
+      view.innerHTML = '<div class="sub">' + miniSearch() + '<h1>We couldn’t find that page</h1><p class="lead">Try searching, or go back to <a href="support.html" style="color:#1ed760">Support</a>.</p></div>';
+    }
+
+    function contactView() {
+      document.title = "Contact us - BeatBox Support";
+      const acc = window.Auth && Auth.current();
+      const mine = acc ? JSON.parse(localStorage.getItem("beatboxTickets") || "[]").filter((t) => t.email === acc.email).reverse() : [];
+      view.innerHTML = `<div class="sub"><div class="crumbs"><a href="support.html">Support</a> › Contact us</div><h1>Contact us</h1>
+        <p class="lead">Tell us what’s going on and we’ll reply by email. Most answers are in the <a href="support.html" style="color:#1ed760">help articles</a>.</p>
+        <div id="sent" hidden class="ok-box"></div>
+        <form id="cf" novalidate>
+          <div class="form-row"><label for="cName">Name</label><input id="cName" value="${esc(acc ? acc.name : "")}" /><div class="err" id="eName">Please enter your name.</div></div>
+          <div class="form-row"><label for="cEmail">Email</label><input id="cEmail" type="email" value="${esc(acc && !acc.email.endsWith("@phone.beatbox.local") ? acc.email : "")}" /><div class="err" id="eEmail">Please enter a valid email address.</div></div>
+          <div class="form-row"><label for="cTopic">Topic</label><select id="cTopic">${H.cats.map((c) => `<option>${c.title}</option>`).join("")}<option>Something else</option></select></div>
+          <div class="form-row"><label for="cMsg">Message</label><textarea id="cMsg" placeholder="Describe the problem. Include receipt numbers for payment questions."></textarea><div class="err" id="eMsg">Please write at least 10 characters.</div></div>
+          <button class="btn" type="submit">Send message</button>
+          <p class="demo-note">Demo: your message is saved in this browser only. It isn’t sent to a real support team.</p>
+        </form>
+        ${mine.length ? "<h2>Your recent requests</h2><ul class=\"alist\">" + mine.slice(0, 5).map((t) => `<li><div class="req"><strong>${esc(t.topic)} · <span class="ticket">${t.id}</span></strong><span>${new Date(t.date).toLocaleDateString("en-IN")} · ${esc(t.message.slice(0, 80))}${t.message.length > 80 ? "…" : ""}</span></div></li>`).join("") + "</ul>" : ""}</div>`;
+      $("cf").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = $("cName").value.trim(), email = $("cEmail").value.trim(), msg = $("cMsg").value.trim();
+        const v = { eName: !!name, eEmail: window.Auth ? Auth.validEmail(email) : /\S+@\S+\.\S+/.test(email), eMsg: msg.length >= 10 };
+        Object.entries(v).forEach(([id, ok]) => $(id).classList.toggle("show", !ok));
+        ["cName", "cEmail", "cMsg"].forEach((id, i) => $(id).classList.toggle("bad", !Object.values(v)[i]));
+        if (!Object.values(v).every(Boolean)) return;
+        const t = { id: "BB-" + Math.random().toString(36).slice(2, 8).toUpperCase(), name, email: email.toLowerCase(), topic: $("cTopic").value, message: msg, date: Date.now() };
+        const all = JSON.parse(localStorage.getItem("beatboxTickets") || "[]"); all.push(t);
+        try { localStorage.setItem("beatboxTickets", JSON.stringify(all)); } catch (x) {}
+        $("sent").hidden = false;
+        $("sent").innerHTML = "<strong>Thanks, " + esc(name) + "!</strong><br />We’ve got your message. Your request number is <span class=\"ticket\">" + t.id + "</span>.";
+        $("cf").reset(); $("sent").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+
+    // ---------- router ----------
+    (function () {
+      const p = new URLSearchParams(location.search);
+      if (p.get("a")) articleView(p.get("a"));
+      else if (p.get("cat")) categoryView(p.get("cat"));
+      else if (p.has("q")) searchView(p.get("q"));
+      else if (p.has("contact")) contactView();
+      else homeView();
+    })();
+  </script>
+</body>
+</html>

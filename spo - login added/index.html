@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>BeatBox</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#homeView" id="skipLink">Skip to main content</a>
+    <!-- NAVBAR -->
+
+    <header class="navbar" role="banner">
+      <a class="logo" href="index.html" aria-label="BeatBox home">
+        <img src="logo.svg" alt="" width="44" height="44" />
+      </a>
+
+      <button class="home-btn" id="homeBtn" aria-label="Home">
+        <i class="fa-solid fa-house"></i>
+      </button>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="What do you want to play?"
+          autocomplete="off"
+          aria-label="Search songs and artists"
+        />
+        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <span class="search-divider"></span>
+        <button type="button" class="browse-btn" id="browseBtn" aria-label="Browse all">
+          <i class="fa-solid fa-box-archive"></i>
+        </button>
+      </div>
+
+      <div class="nav-links">
+        <a href="premium.html" class="premium-btn">Premium</a>
+        <a href="support.html" class="support-btn">Support</a>
+        <a href="download.html">Download</a>
+
+        <span class="line"></span>
+
+        <a href="download.html">
+          <i class="fa-regular fa-circle-down"></i>
+          Install App
+        </a>
+
+        <!-- Added IDs to these so we can hide them in JS -->
+        <a href="signup.html" id="navSignup">Sign up</a>
+
+        <button class="login-btn" id="navLogin">
+          <a href="login.html" style="color: black; text-decoration: none"
+            >Log in</a
+          >
+        </button>
+
+        <!-- Profile button (hidden by default) -->
+        <button
+          class="profile-btn"
+          id="navProfile"
+          style="display: none"
+          onclick="toggleProfileMenu(event)"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Profile menu"
+        >
+          <span id="profileInitial">U</span>
+        </button>
+      </div>
+
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="hamburgerMenu">
+        <i class="fa-solid fa-bars" id="menuIcon"></i>
+      </button>
+    </header>
+    <!-- PROFILE MENU -->
+    <div class="profile-menu" id="profileMenu" role="menu" hidden>
+      <div class="pm-user" id="pmUser"></div>
+      <a href="account.html" role="menuitem">Account <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="index.html#profile" role="menuitem">Profile</a>
+      <a href="premium.html" role="menuitem">Upgrade to Premium <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="support.html" role="menuitem">Support <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="download.html" role="menuitem">Download <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <hr />
+      <button type="button" role="menuitem" onclick="logout()">Log out</button>
+    </div>
+
+    <div class="hamburger-menu" id="hamburgerMenu">
+      <a href="premium.html">
+        <span>Premium</span>
+        <span>↗</span>
+      </a>
+
+      <a href="support.html">
+        <span>Support</span>
+        <span>↗</span>
+      </a>
+
+      <a href="download.html">
+        <span>Download</span>
+        <span>↗</span>
+      </a>
+
+      <a href="signup.html">
+        <span>Sign up</span>
+        <span>↗</span>
+      </a>
+
+      <a href="login.html">
+        <span>Log in</span>
+        <span>↗</span>
+      </a>
+    </div>
+
+    <!--MAIN-->
+
+    <div class="layout">
+      <!--SIDEBAR-->
+
+      <aside class="sidebar" aria-label="Your Library">
+        <div class="sidebar-resizer" id="sidebarResizer" title="Drag to resize"></div>
+        <div class="library-header">
+          <div class="lib-title">
+            <button type="button" class="lib-toggle" id="libToggle" aria-expanded="true" aria-label="Collapse Your Library">
+              <i class="fa-solid fa-book-open"></i>
+            </button>
+            <h3>Your Library</h3>
+          </div>
+
+          <!-- Triggers login tooltip prompt -->
+          <button
+            class="create-btn"
+            id="createBtn"
+            onclick="toggleCreateMenu(event)"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Create
+          </button>
+        </div>
+
+        <!-- CREATE MENU -->
+        <div class="create-menu" id="createMenu" role="menu">
+          <button class="create-item" role="menuitem" onclick="createMenuPick(event, 'playlist')">
+            <span class="ci-icon"><i class="fa-solid fa-music"></i></span>
+            <span>
+              <strong>Playlist</strong>
+              <span class="sub">Create a playlist with songs or episodes</span>
+            </span>
+          </button>
+          <button class="create-item" role="menuitem" onclick="createMenuPick(event, 'blend')">
+            <span class="ci-icon"><i class="fa-solid fa-circle-half-stroke"></i></span>
+            <span>
+              <strong>Blend</strong>
+              <span class="sub">Combine your friends' tastes into a playlist</span>
+            </span>
+          </button>
+          <hr />
+          <button class="create-item" role="menuitem" onclick="createMenuPick(event, 'folder')">
+            <span class="ci-icon"><i class="fa-regular fa-folder"></i></span>
+            <span>
+              <strong>Folder</strong>
+              <span class="sub">Organize your playlists</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="lib-tools" id="libTools" hidden>
+          <div class="lib-chips">
+            <button type="button" class="chip" data-lf="playlists">Playlists</button>
+            <button type="button" class="chip" data-lf="folders">Folders</button>
+          </div>
+          <div class="lib-tools-row">
+            <div class="lib-search">
+              <button type="button" id="libSearchBtn" aria-label="Search in Your Library"><i class="fa-solid fa-magnifying-glass"></i></button>
+              <input type="text" id="libSearch" placeholder="Search in Your Library" aria-label="Search in Your Library" hidden />
+            </div>
+            <button type="button" class="lib-sort" id="libSort"><span id="libSortLabel">Recents</span> <i class="fa-solid fa-list"></i></button>
+          </div>
+        </div>
+
+        <!-- Only this part scrolls -->
+        <div class="side-scroll">
+        <div class="library-list" id="libraryList"></div>
+
+        <!--Playlist Box-->
+
+        <div class="side-box">
+          <h3>Create your first playlist</h3>
+
+          <p>It's easy, we'll help you</p>
+
+          <!-- Triggers login tooltip prompt -->
+          <button onclick="createMenuPick(event, 'playlist')">Create playlist</button>
+        </div>
+
+        <!-- Podcast Box -->
+
+        <div class="side-box">
+          <h3>Let's find some podcasts to follow</h3>
+
+          <p>We'll keep you updated on new episodes</p>
+
+          <button>Browse podcasts</button>
+        </div>
+
+        <!-- Sidebar Footer -->
+
+        </div>
+        <!-- /side-scroll -->
+
+        <div class="side-footer">
+          <div>
+            <a href="info.html?page=legal">Legal</a>
+            <a href="info.html?page=safety">Safety & Privacy Center</a>
+            <a href="info.html?page=privacy">Privacy Policy</a>
+            <a href="info.html?page=cookies">Cookies</a>
+          </div>
+
+          <div>
+            <a href="info.html?page=ads">About Ads</a>
+            <a href="info.html?page=accessibility">Accessibility</a>
+          </div>
+
+          <a href="info.html?page=cookies" class="cookies-solo">Cookies</a>
+
+          <button class="language">
+            <i class="fa-solid fa-globe"></i>
+            English
+          </button>
+        </div>
+      </aside>
+
+      <!-- LOGIN TOOLTIP POPUP -->
+      <div class="tooltip-card" id="loginTooltip" style="display: none">
+        <h3>Create a playlist</h3>
+        <p>Log in to create and share playlists.</p>
+        <div class="tooltip-actions">
+          <button class="not-now-btn" onclick="closeLoginTooltip()">
+            Not now
+          </button>
+          <a href="login.html" class="login-redirect-btn">Log in</a>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+
+      <main class="content" id="homeView">
+        <!-- TRENDING SONGS -->
+
+        <section>
+          <div class="section-header">
+            <h2>Trending songs</h2>
+
+            <a href="#showall/trending">Show all</a>
+          </div>
+
+          <div class="card-container" data-list="trending">
+          </div>
+        </section>
+
+        <!-- POPULAR ARTISTS -->
+
+        <section>
+          <div class="section-header">
+            <h2>Popular artists</h2>
+
+            <a href="#showall/artists">Show all</a>
+          </div>
+
+          <div class="artist-container" data-list="artists">
+          </div>
+        </section>
+
+        <!-- POPULAR ALBUMS -->
+
+        <section>
+          <div class="section-header">
+            <h2>Popular albums and singles</h2>
+
+            <a href="#showall/albums">Show all</a>
+          </div>
+
+          <div class="card-container" data-list="albums">
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header">
+            <h2>Featured Charts</h2>
+
+            <a href="#showall/charts">Show all</a>
+          </div>
+
+          <div class="chart-container" data-list="charts">
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer>
+          <div class="footer-column">
+            <h3>Company</h3>
+
+            <a href="about.html">About</a>
+            <a href="info.html?page=jobs">Jobs</a>
+            <a href="info.html?page=record">For the Record</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>Communities</h3>
+
+            <a href="info.html?page=artists">For Artists</a>
+            <a href="info.html?page=developers">Developers</a>
+            <a href="info.html?page=advertising">Advertising</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>Useful links</h3>
+
+            <a href="support.html">Support</a>
+            <a href="download.html">Free Mobile App</a>
+            <a href="info.html?page=popular">Popular by Country</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>BeatBox Plans</h3>
+
+            <a href="premium.html">Premium Standard</a>
+            <a href="premium.html">Premium Platinum</a>
+            <a href="premium.html">Premium Student</a>
+          </div>
+        </footer>
+      </main>
+
+      <!-- SEARCH VIEW -->
+      <main class="content" id="searchView" hidden>
+        <div class="chips" id="searchChips" hidden>
+          <button type="button" class="chip active" data-filter="all">All</button>
+          <button type="button" class="chip" data-filter="songs">Songs</button>
+          <button type="button" class="chip" data-filter="artists">Artists</button>
+        </div>
+        <div id="searchBody"></div>
+      </main>
+
+      <!-- PAGES (artist, song, chart, playlist, folder, show all) -->
+      <main class="content" id="pageView" hidden></main>
+    </div>
+
+    <!-- BOTTOM SIGNUP BAR -->
+
+    <div class="signup-bar">
+      <div>
+        <strong>Preview of BeatBox</strong>
+
+        <p>
+          Sign up to get unlimited songs and podcasts with occasional ads. No
+          credit card needed.
+        </p>
+      </div>
+
+      <button onclick="window.location.href = 'signup.html'">
+        Sign up free
+      </button>
+    </div>
+
+    <!-- NOW PLAYING BAR -->
+    <div class="player-bar" id="playerBar">
+      <div class="pb-track">
+        <img id="pbCover" alt="" />
+        <div class="pb-info">
+          <strong id="pbTitle"></strong>
+          <span id="pbArtist"></span>
+        </div>
+        <button type="button" class="pb-like" id="pbLike" aria-label="Like this song" aria-pressed="false">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+      </div>
+
+      <div class="pb-center">
+        <div class="pb-controls">
+          <button type="button" id="pbShuffle" aria-label="Shuffle" aria-pressed="false">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button type="button" id="pbPrev" aria-label="Previous song">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+          <button type="button" id="pbPlay" class="pb-main" aria-label="Play or pause">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button type="button" id="pbNext" aria-label="Next song">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+          <button type="button" id="pbRepeat" aria-label="Repeat off">
+            <i class="fa-solid fa-repeat"></i>
+          </button>
+        </div>
+        <div class="pb-seek">
+          <span id="pbCur">0:00</span>
+          <input type="range" id="pbSeek" min="0" max="100" step="0.1" value="0" aria-label="Seek" />
+          <span id="pbDur">0:00</span>
+        </div>
+      </div>
+
+      <div class="pb-volume">
+        <button type="button" id="pbQueue" aria-label="Queue"><i class="fa-solid fa-list"></i></button>
+        <button type="button" id="pbMute" aria-label="Mute"><i class="fa-solid fa-volume-high" id="pbVolIcon"></i></button>
+        <input type="range" id="pbVol" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+      </div>
+    </div>
+
+    <!-- QUEUE PANEL -->
+    <div class="queue-panel" id="queuePanel" hidden>
+      <h3>Queue</h3>
+      <div id="queueBody"></div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="bottom-nav" id="bottomNav" aria-label="Mobile navigation">
+      <button type="button" data-tab="home" class="active"><i class="fa-solid fa-house"></i><span>Home</span></button>
+      <button type="button" data-tab="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+      <button type="button" data-tab="library"><i class="fa-solid fa-book-open"></i><span>Your Library</span></button>
+    </nav>
+
+    <!-- Shared audio element used by every music card -->
+    <audio id="audioPlayer"></audio>
+
+    <script src="songs.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="library.js"></script>
+  </body>
+</html>

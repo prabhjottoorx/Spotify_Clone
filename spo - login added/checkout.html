@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout - BeatBox</title>
+<link rel="stylesheet" href="auth.css" />
+<style>
+.wrap{max-width:980px;margin:0 auto;padding:36px 20px 80px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}
+.top a.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:24px;font-weight:800;letter-spacing:-1px}
+.top .a-logo{margin:0;width:34px;height:34px}
+.top nav a{color:#b3b3b3;text-decoration:none;font-weight:700;margin-left:20px}
+.top nav a:hover{color:#fff}
+.auth-base h1{font-size:clamp(30px,5vw,44px)}
+.panel{background:#1f1f1f;border-radius:14px;padding:26px;margin-bottom:20px}
+.panel h2{font-size:20px;margin-bottom:16px}
+.muted{color:#b3b3b3;font-size:14px;line-height:1.5}
+.btn2{display:inline-block;background:transparent;color:#fff;border:1px solid #727272;border-radius:30px;padding:11px 22px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn2:hover{border-color:#fff}
+.btn2.danger{color:#f15e6c;border-color:#f15e6c}
+.btn2.green{background:#1ed760;color:#000;border-color:#1ed760}
+.auth-base .a-btn.inline{width:auto;padding:0 30px;height:46px;font-size:15px;display:inline-block}
+.toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,20px);background:#fff;color:#000;font-weight:700;padding:12px 24px;border-radius:8px;opacity:0;pointer-events:none;transition:all .2s ease;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.co{display:grid;grid-template-columns:1.3fr 1fr;gap:26px;align-items:start}
+@media(max-width:800px){.co{grid-template-columns:1fr}}
+.tabs{display:flex;gap:10px;margin-bottom:18px}
+.tab{flex:1;background:#2a2a2a;border:1px solid transparent;color:#fff;border-radius:8px;padding:12px;font-weight:700;cursor:pointer;font-size:15px;font-family:inherit}
+.tab.on{border-color:#1ed760;background:#1d2b22}
+.sum-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #333;font-size:15px}
+.sum-row:last-of-type{border-bottom:none}
+.sum-row strong{font-size:20px}
+.demo{background:#2a2a2a;border-left:4px solid #1ed760;border-radius:6px;padding:12px 14px;font-size:13px;color:#d6d6d6;line-height:1.5;margin-bottom:20px}
+.brandtag{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;color:#b3b3b3;font-weight:700}
+.rel{position:relative}
+.sec-lock{font-size:12px;color:#b3b3b3;margin-top:12px;text-align:center}
+.a-err.show{display:block}
+</style>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body class="auth-base">
+<div class="wrap">
+  <div class="top"><a class="brand" href="index.html"><img class="a-logo" src="logo.svg" alt="" width="44" height="44" /><span>BeatBox</span></a>
+    <nav><a href="premium.html">Premium</a><a href="support.html">Support</a><a href="index.html">Web Player</a></nav></div>
+  <div id="gate" hidden class="panel" style="max-width:520px;margin:0 auto">
+    <h2>Log in to continue</h2>
+    <p class="muted" style="margin-bottom:18px">You need a BeatBox account to get Premium.</p>
+    <a class="a-btn inline" href="login.html" style="text-decoration:none;line-height:46px" id="gLogin">Log in</a>
+    <a class="btn2" href="signup.html" id="gSignup" style="margin-left:10px">Sign up</a>
+  </div>
+  <div id="already" hidden class="panel" style="max-width:520px;margin:0 auto">
+    <h2 id="alTitle"></h2>
+    <p class="muted" style="margin-bottom:18px">You can change or cancel your plan from your account page.</p>
+    <a class="btn2 green" href="account.html">Manage plan</a> <a class="btn2" href="premium.html" style="margin-left:8px">See all plans</a>
+  </div>
+  <div id="main" hidden>
+    <h1>Checkout</h1>
+    <div class="co">
+      <form id="f" class="panel" novalidate>
+        <div class="demo"><strong>Demo checkout.</strong> No real payment is taken. Please don’t enter real card details. You can use the test card <b>4242 4242 4242 4242</b>, any future expiry and any 3-digit CVV.</div>
+        <div id="studentBox" hidden>
+          <h2>Student verification</h2>
+          <div class="a-group"><label class="a-label" for="inst">College or university</label><input class="a-input" id="inst" /><div class="a-err" id="eInst"></div></div>
+          <div class="a-group"><label class="a-label" for="semail">Student email</label><input class="a-input" id="semail" type="email" placeholder="you@college.ac.in" /><p class="a-hint">Must end in .edu, .edu.in or .ac.in</p><div class="a-err" id="eSemail"></div></div>
+        </div>
+        <h2>Payment method</h2>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab on" data-m="card" role="tab">Card</button>
+          <button type="button" class="tab" data-m="upi" role="tab">UPI</button>
+        </div>
+        <div id="cardBox">
+          <div class="a-group"><label class="a-label" for="cname">Name on card</label><input class="a-input" id="cname" autocomplete="cc-name" /><div class="a-err" id="eName"></div></div>
+          <div class="a-group"><label class="a-label" for="cnum">Card number</label><div class="rel"><input class="a-input" id="cnum" inputmode="numeric" autocomplete="cc-number" maxlength="23" placeholder="1234 5678 9012 3456" /><span class="brandtag" id="brand"></span></div><div class="a-err" id="eNum"></div></div>
+          <div class="a-row">
+            <div class="a-group"><label class="a-label" for="cexp">Expiry</label><input class="a-input" id="cexp" inputmode="numeric" autocomplete="cc-exp" maxlength="5" placeholder="MM/YY" /><div class="a-err" id="eExp"></div></div>
+            <div class="a-group"><label class="a-label" for="ccvv">CVV</label><input class="a-input" id="ccvv" inputmode="numeric" autocomplete="cc-csc" maxlength="4" type="password" placeholder="123" /><div class="a-err" id="eCvv"></div></div>
+          </div>
+        </div>
+        <div id="upiBox" hidden>
+          <div class="a-group"><label class="a-label" for="upi">UPI ID</label><input class="a-input" id="upi" placeholder="name@bank" autocomplete="off" /><div class="a-err" id="eUpi"></div></div>
+        </div>
+        <label class="a-check"><input type="checkbox" id="agree" /> <span>I agree to the <a href="info.html?page=legal" target="_blank" rel="noopener">Terms of Use</a> and understand how my plan renews.</span></label>
+        <div class="a-err" id="eAgree"></div>
+        <button class="a-btn" type="submit" id="pay">Pay</button>
+        <p class="sec-lock">🔒 Demo only. Card numbers are never saved, only the last 4 digits.</p>
+      </form>
+      <aside class="panel">
+        <h2>Order summary</h2>
+        <div class="sum-row"><span id="sPlan"></span><span id="sPrice"></span></div>
+        <div class="sum-row"><span class="muted" id="sNote"></span><span></span></div>
+        <div class="sum-row"><span id="sNextL">Next billing</span><span id="sNext"></span></div>
+        <div class="sum-row"><span>Due today</span><strong id="sDue"></strong></div>
+        <p class="muted" style="margin-top:14px"><a href="premium.html" style="color:#fff">← Change plan</a></p>
+      </aside>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="auth.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+function toast(m) { const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 2600); }
+const money = (n) => "₹" + n.toLocaleString("en-IN");
+const fmtDate = (ts) => new Date(ts).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+const params = new URLSearchParams(location.search);
+let planKey = params.get("plan"); if (!Auth.PLANS[planKey] || planKey === "free") planKey = "standard";
+const plan = Auth.PLANS[planKey];
+const acc = Auth.current();
+
+if (!acc) {
+  sessionStorage.setItem("beatboxNext", "checkout.html?plan=" + planKey);
+  $("gate").hidden = false;
+} else if (acc.plan === planKey || (acc.plan === "prepaid" && planKey === "standard" && false)) {
+  $("alTitle").textContent = "You’re already on " + plan.name;
+  $("already").hidden = false;
+} else {
+  $("main").hidden = false;
+  const now = new Date(); const next = new Date(now); next.setMonth(next.getMonth() + plan.months);
+  $("sPlan").textContent = plan.name; $("sPrice").textContent = money(plan.today);
+  $("sNote").textContent = plan.note; $("sDue").textContent = money(plan.today);
+  $("sNextL").textContent = plan.recurring ? "Next billing" : "Plan ends";
+  $("sNext").textContent = fmtDate(next);
+  $("pay").textContent = "Pay " + money(plan.today);
+  if (planKey === "student") $("studentBox").hidden = false;
+
+  let method = "card";
+  document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
+    method = t.dataset.m;
+    document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x === t));
+    $("cardBox").hidden = method !== "card"; $("upiBox").hidden = method !== "upi";
+  }));
+
+  // formatting
+  const brandOf = (n) => /^4/.test(n) ? "Visa" : /^(5[1-5]|2[2-7])/.test(n) ? "Mastercard" : /^3[47]/.test(n) ? "Amex" : /^(60|65|81|82|508)/.test(n) ? "RuPay" : "";
+  $("cnum").addEventListener("input", (e) => {
+    const d = e.target.value.replace(/\D/g, "").slice(0, 19);
+    e.target.value = d.replace(/(.{4})/g, "$1 ").trim();
+    $("brand").textContent = brandOf(d);
+  });
+  $("cexp").addEventListener("input", (e) => {
+    let d = e.target.value.replace(/\D/g, "").slice(0, 4);
+    if (d.length > 2) d = d.slice(0, 2) + "/" + d.slice(2);
+    e.target.value = d;
+  });
+  const luhn = (n) => { let s = 0, alt = false; for (let i = n.length - 1; i >= 0; i--) { let x = +n[i]; if (alt) { x *= 2; if (x > 9) x -= 9; } s += x; alt = !alt; } return s % 10 === 0; };
+  const bad = (id, eid, msg) => { $(eid).textContent = msg; $(eid).classList.add("show"); $(id).classList.add("bad"); return false; };
+  const clear = () => { document.querySelectorAll(".a-err").forEach((e) => e.classList.remove("show")); document.querySelectorAll(".a-input").forEach((i) => i.classList.remove("bad")); };
+
+  $("f").addEventListener("submit", (e) => {
+    e.preventDefault(); clear();
+    let ok = true;
+    if (planKey === "student") {
+      if (!$("inst").value.trim()) ok = bad("inst", "eInst", "Enter your college or university.");
+      if (!/^[^\s@]+@[^\s@]+\.(edu|edu\.in|ac\.in)$/i.test($("semail").value.trim())) ok = bad("semail", "eSemail", "Use a student email ending in .edu, .edu.in or .ac.in.");
+    }
+    let methodLabel = "";
+    if (method === "card") {
+      const num = $("cnum").value.replace(/\s/g, "");
+      if (!$("cname").value.trim()) ok = bad("cname", "eName", "Enter the name on your card.");
+      if (num.length < 13 || !luhn(num)) ok = bad("cnum", "eNum", "That card number doesn’t look right.");
+      const m = $("cexp").value.match(/^(\d{2})\/(\d{2})$/);
+      const expOk = m && +m[1] >= 1 && +m[1] <= 12 && new Date(2000 + +m[2], +m[1], 0, 23, 59) >= new Date();
+      if (!expOk) ok = bad("cexp", "eExp", "Enter a valid future expiry (MM/YY).");
+      if (!/^\d{3,4}$/.test($("ccvv").value)) ok = bad("ccvv", "eCvv", "Enter the 3 or 4 digit CVV.");
+      methodLabel = (brandOf(num) || "Card") + " •••• " + num.slice(-4);
+    } else {
+      const u = $("upi").value.trim();
+      if (!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(u)) ok = bad("upi", "eUpi", "Enter a valid UPI ID, like name@bank.");
+      methodLabel = "UPI " + u;
+    }
+    if (!$("agree").checked) { $("eAgree").textContent = "Please accept the terms to continue."; $("eAgree").classList.add("show"); ok = false; }
+    if (!ok) return;
+
+    $("pay").disabled = true; $("pay").textContent = "Processing…";
+    setTimeout(() => {
+      const id = "BB" + Math.random().toString(36).slice(2, 10).toUpperCase();
+      const payment = { id, plan: planKey, planName: plan.name, amount: plan.today, date: Date.now(), method: methodLabel };
+      Auth.setPlan(planKey, {
+        planSince: Date.now(), nextBilling: next.getTime(), recurring: plan.recurring > 0, planMethod: methodLabel,
+        payments: (Auth.current().payments || []).concat(payment),
+      });
+      location.href = "payment-success.html?id=" + id;
+    }, 1400);
+  });
+}
+</script>
+</body>
+</html>

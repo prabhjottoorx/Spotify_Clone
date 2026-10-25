@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up to BeatBox</title>
+    <link rel="stylesheet" href="auth-pages.css" />
+    <style>
+        :root { --page-pad: 110px 20px 60px; --h1-size: 42px; --h1-ls: -1.5px; --h1-gap: 48px; --page-pad-sm: 60px 20px 60px; --h1-size-sm: 34px; }
+    </style>
+    <link rel="stylesheet" href="auth.css" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+
+<body>
+
+    <main class="signup-page">
+
+        <!-- BeatBox Logo -->
+        <img class="beatbox-logo" src="logo.svg" alt="BeatBox" width="38" height="38" />
+
+        <!-- Heading -->
+        <h1>
+            Sign up to<br>
+            start listening
+        </h1>
+
+        <!-- Signup Form -->
+        <form id="signupForm" novalidate>
+            <div class="form-group">
+                <label for="email">
+                    Email address
+                </label>
+                <input
+                    type="email"
+                    id="email"
+                    class="email-input"
+                    placeholder="name@domain.com"
+                >
+                <div id="errorMsg" class="error-message">Please enter a valid email address.</div>
+            </div>
+
+            <!-- Next -->
+            <button type="submit" class="next-btn">
+                Next
+            </button>
+        </form>
+
+        <!-- OR -->
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <!-- Phone -->
+        <button type="button" class="social-btn" onclick="handleSocialSignup('Phone')">
+            <span class="icon phone-icon">▯</span>
+            <span class="button-text">Sign up with phone number</span>
+        </button>
+
+        <!-- Google -->
+        <button type="button" class="social-btn" onclick="handleSocialSignup('Google')">
+            <span class="icon google-icon">G</span>
+            <span class="button-text">Sign up with Google</span>
+        </button>
+
+        <!-- Apple -->
+        <button type="button" class="social-btn" onclick="handleSocialSignup('Apple')">
+            <span class="icon apple-icon">●</span>
+            <span class="button-text">Sign up with Apple</span>
+        </button>
+
+        <p style="text-align:center;margin-top:28px;color:#b3b3b3;font-size:15px">
+            Already have an account? <a href="login.html" style="color:#fff;font-weight:700">Log in here</a>
+        </p>
+
+    </main>
+
+    <script src="auth.js"></script>
+    <script>
+        const form = document.getElementById('signupForm');
+        const emailInput = document.getElementById('email');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailValue = emailInput.value.trim();
+
+            if (!Auth.validEmail(emailValue)) {
+                errorMsg.textContent = 'Please enter a valid email address.';
+                errorMsg.style.display = 'block';
+                emailInput.style.borderColor = '#e91429';
+                return;
+            }
+            if (Auth.exists(emailValue)) {
+                errorMsg.innerHTML = 'This email is already connected to an account. <a href="login-password.html?email=' + encodeURIComponent(emailValue) + '" style="color:#fff;text-decoration:underline">Log in</a> instead.';
+                errorMsg.style.display = 'block';
+                emailInput.style.borderColor = '#e91429';
+                return;
+            }
+            errorMsg.style.display = 'none';
+            emailInput.style.borderColor = '#1ed760';
+            sessionStorage.setItem('beatboxSignup', JSON.stringify({ email: emailValue }));
+            window.location.href = 'create-password.html';
+        });
+
+        emailInput.addEventListener('input', function() {
+            errorMsg.style.display = 'none';
+            emailInput.style.borderColor = '#727272';
+        });
+
+        function handleSocialSignup(provider) {
+            Auth.socialModal(provider);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in - BeatBox</title>
+    <link rel="stylesheet" href="auth-pages.css" />
+    <style>
+        :root { --page-pad: 36px 20px 50px; --logo-gap: 22px; --h1-size: 52px; --h1-ls: -2px; --h1-gap: 43px; --page-pad-sm: 35px 20px 40px; --h1-size-sm: 40px; }
+    </style>
+    <link rel="stylesheet" href="auth.css" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <!-- BeatBox Logo -->
+        <img class="beatbox-logo" src="logo.svg" alt="BeatBox" width="38" height="38" />
+
+        <!-- Heading -->
+        <h1>Welcome back</h1>
+
+        <!-- Login Form -->
+        <form id="loginForm" novalidate>
+            <div class="form-group">
+                <label for="email">Email or username</label>
+                <input
+                    type="email"
+                    id="email"
+                    class="email"
+                    placeholder="Email or username"
+                    required
+                >
+                <div id="errorMsg" class="error-message">Please enter a valid email address.</div>
+            </div>
+
+            <!-- Continue -->
+            <button type="submit" class="continue-btn">
+                Continue
+            </button>
+        </form>
+
+        <!-- OR -->
+        <div class="or">or</div>
+
+        <!-- Phone -->
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Phone')">
+            <span class="icon phone">▯</span>
+            <span class="button-text">Continue with phone number</span>
+        </button>
+
+        <!-- Google -->
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Google')">
+            <span class="icon google">G</span>
+            <span class="button-text">Continue with Google</span>
+        </button>
+
+        <!-- Facebook -->
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Facebook')">
+            <span class="icon facebook">f</span>
+            <span class="button-text">Continue with Facebook</span>
+        </button>
+
+        <!-- Apple -->
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Apple')">
+            <span class="icon apple">●</span>
+            <span class="button-text">Continue with Apple</span>
+        </button>
+
+        <!-- Sign Up Link -->
+        <div class="signup">
+            <p>Don't have an account?</p>
+            <a href="signup.html">Sign up for BeatBox</a>
+        </div>
+
+    </main>
+
+    <script src="auth.js"></script>
+    <script>
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailValue = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(emailValue)) {
+                errorMsg.style.display = 'block';
+                emailInput.style.borderColor = '#e91429';
+            } else {
+                errorMsg.style.display = 'none';
+                emailInput.style.borderColor = '#1ed760';
+                
+                // Redirects to password entry step carrying the email parameter
+                window.location.href = `login-password.html?email=${encodeURIComponent(emailValue)}`;
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            errorMsg.style.display = 'none';
+            emailInput.style.borderColor = '#727272';
+        });
+
+        function handleSocialLogin(provider) {
+            Auth.socialModal(provider);
+        }
+    </script>
+</body>
+</html>
