@@ -1,287 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeatBox Premium</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BeatBox Premium (India) - Get Premium Standard</title>
+  <style>
+    :root { --black:#000; --bg:#121212; --card:#1f1f1f; --muted:#b3b3b3; --green:#1ed760; --line:#333; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--black); color:#fff; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    :focus-visible { outline:2px solid #fff; outline-offset:3px; }
+    .skip { position:absolute; left:-999px; }
+    .skip:focus { left:10px; top:10px; background:#fff; color:#000; padding:8px 14px; border-radius:20px; z-index:99; }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+    /* Buttons */
+    .btn { display:inline-flex; align-items:center; justify-content:center; height:52px; padding:0 34px; border-radius:30px; font-size:16px; font-weight:700; border:1px solid transparent; cursor:pointer; transition:transform .15s ease, background .15s ease, border-color .15s ease; }
+    .btn:hover { transform:scale(1.04); }
+    .btn-green { background:var(--green); color:#000; }
+    .btn-green:hover { background:#3be477; }
+    .btn-white { background:#fff; color:#000; }
+    .btn-outline { border-color:#727272; color:#fff; background:transparent; }
+    .btn-outline:hover { border-color:#fff; }
+    .btn-block { width:100%; }
 
-        body {
-            background: #121212;
-            color: white;
-        }
+    /* Header */
+    header { position:sticky; top:0; z-index:20; background:var(--black); height:80px; display:flex; align-items:center; padding:0 40px; gap:34px; }
+    .brand { display:flex; align-items:center; gap:10px; font-size:28px; font-weight:800; letter-spacing:-1px; }
+    .brand img { width:38px; height:38px; }
+    .nav { display:flex; align-items:center; gap:30px; margin-left:12px; }
+    .nav a, .nav button { font-size:16px; font-weight:700; color:#fff; background:none; border:0; cursor:pointer; font-family:inherit; }
+    .nav a:hover, .nav button:hover { color:var(--green); }
+    .dd { position:relative; }
+    .dd-menu { display:none; position:absolute; top:42px; left:-20px; width:340px; background:var(--card); border-radius:12px; padding:10px; box-shadow:0 12px 40px rgba(0,0,0,.6); }
+    .dd:hover .dd-menu, .dd:focus-within .dd-menu { display:block; }
+    .dd-menu a { display:block; padding:14px 16px; border-radius:8px; }
+    .dd-menu a:hover { background:#2a2a2a; color:#fff; }
+    .dd-menu strong { display:block; font-size:16px; margin-bottom:4px; }
+    .dd-menu span { font-size:13px; color:var(--muted); font-weight:400; }
+    .nav-right { margin-left:auto; display:flex; align-items:center; gap:26px; }
+    .nav-right > a:not(.btn) { font-weight:700; font-size:16px; }
+    .nav-right > a:not(.btn):hover { color:var(--green); }
+    .nav-right .btn { height:46px; padding:0 24px; }
 
-        /* Header */
-        .header {
-            height: 70px;
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-            background: #000;
-        }
+    /* Hero */
+    .hero { background:linear-gradient(135deg,#2b0b66 0%,#7a1f9e 50%,#e0397b 100%); padding:110px 40px 90px; text-align:center; }
+    .hero h1 { font-size:clamp(40px,7vw,92px); line-height:1.02; font-weight:800; letter-spacing:-3px; max-width:1000px; margin:0 auto 38px; }
+    .hero h1 span { display:block; }
+    .hero .cta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:26px; }
+    .fine { font-size:12px; color:var(--muted); line-height:1.5; }
+    .hero .fine { color:rgba(255,255,255,.8); }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #1ed760;
-        }
+    /* Intro */
+    .intro { background:var(--bg); padding:100px 40px; text-align:center; }
+    .intro h2 { font-size:clamp(28px,4vw,48px); letter-spacing:-1.5px; max-width:900px; margin:0 auto 18px; line-height:1.1; }
+    .intro p { font-size:20px; color:var(--muted); max-width:640px; margin:0 auto; }
 
-        .back {
-            margin-left: auto;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
+    /* Standard features */
+    .features { background:var(--black); padding:100px 40px; }
+    .wrap { max-width:1180px; margin:0 auto; }
+    .eyebrow { font-size:16px; font-weight:700; color:var(--green); margin-bottom:12px; }
+    .features h2, .section-title { font-size:clamp(30px,4vw,48px); letter-spacing:-1.5px; margin-bottom:46px; line-height:1.1; }
+    .feat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:46px; }
+    .feat { background:var(--card); border-radius:16px; padding:28px 24px; min-height:200px; }
+    .feat h3 { font-size:20px; margin-bottom:12px; letter-spacing:-.5px; }
+    .feat p { color:var(--muted); font-size:15px; line-height:1.5; }
+    .feat-cta { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
 
-        /* Main */
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-            text-align: center;
-        }
+    /* Discover / together */
+    .story { padding:90px 40px; background:var(--bg); }
+    .story.alt { background:#1a0f2e; }
+    .story .wrap { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .story h2 { font-size:clamp(30px,4vw,48px); letter-spacing:-1.5px; line-height:1.1; margin-bottom:14px; }
+    .story > .wrap p.lead { color:var(--muted); font-size:20px; margin-bottom:28px; }
+    .story ul { list-style:none; display:grid; gap:16px; }
+    .story li { background:rgba(255,255,255,.07); padding:18px 22px; border-radius:14px; font-size:17px; }
+    .art { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:14px; border-radius:28px; background:linear-gradient(135deg,#1ed760,#0d6b8f 60%,#5a2ea6); }
+    .art img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:16px; display:block; box-shadow:0 10px 24px rgba(0,0,0,.35); }
+    .story.alt .art { background:linear-gradient(135deg,#e0397b,#7a1f9e 60%,#2b4fd6); }
+    .shot .pic img { width:100%; height:100%; object-fit:cover; display:block; }
+    .hero-covers { display:flex; justify-content:center; gap:14px; margin-top:56px; flex-wrap:wrap; }
+    .hero-covers img { width:150px; height:150px; object-fit:cover; border-radius:14px; box-shadow:0 14px 30px rgba(0,0,0,.45); }
+    .hero-covers img:nth-child(odd) { transform:rotate(-4deg); }
+    .hero-covers img:nth-child(even) { transform:rotate(4deg) translateY(14px); }
+    @media (max-width:560px) { .hero-covers img { width:92px; height:92px; } }
 
-        h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
+    /* Moments */
+    .moments { background:var(--black); padding:100px 40px; }
+    .moments .lead { color:var(--muted); font-size:20px; max-width:640px; margin:-26px 0 40px; }
+    .reel { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .shot { border-radius:16px; overflow:hidden; background:var(--card); }
+    .shot .pic { aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; font-size:56px; }
+    .shot:nth-child(1) .pic { background:linear-gradient(135deg,#7a1f9e,#e0397b); }
+    .shot:nth-child(2) .pic { background:linear-gradient(135deg,#b3141f,#400); }
+    .shot:nth-child(3) .pic { background:linear-gradient(135deg,#0d6b8f,#2b0b66); }
+    .shot:nth-child(4) .pic { background:linear-gradient(135deg,#e07b1f,#7a1f1f); }
+    .shot:nth-child(5) .pic { background:linear-gradient(135deg,#1ed760,#064); }
+    .shot:nth-child(6) .pic { background:linear-gradient(135deg,#5a2ea6,#111); }
+    .shot p { padding:16px 18px 20px; font-size:14px; color:var(--muted); font-style:italic; }
 
-        .subtitle {
-            color: #b3b3b3;
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
+    /* Plans */
+    .plans { background:var(--bg); padding:100px 40px; scroll-margin-top:80px; }
+    .plans .head { text-align:center; margin-bottom:50px; }
+    .plans .head h2 { font-size:clamp(32px,4.5vw,56px); letter-spacing:-2px; margin-bottom:12px; }
+    .plans .head p { font-size:20px; color:var(--muted); }
+    .plan-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch; }
+    .plan { border-radius:20px; padding:32px 28px; display:flex; flex-direction:column; position:relative; }
+    .plan.standard { background:linear-gradient(160deg,#1e3264,#121a38); }
+    .plan.platinum { background:linear-gradient(160deg,#4a2a7a,#1d0f35); }
+    .plan.student { background:linear-gradient(160deg,#0f5a45,#0a2a22); }
+    .badge { align-self:flex-start; background:#fff; color:#000; font-size:12px; font-weight:700; padding:5px 12px; border-radius:20px; margin-bottom:18px; }
+    .plan .kind { font-size:14px; color:rgba(255,255,255,.75); margin-bottom:4px; }
+    .plan h3 { font-size:34px; letter-spacing:-1px; margin-bottom:16px; }
+    .price { font-size:22px; font-weight:700; }
+    .price-sub { color:var(--muted); font-size:15px; margin:4px 0 22px; }
+    .plan hr { border:0; border-top:1px solid rgba(255,255,255,.2); margin:0 0 22px; }
+    .plan ul { list-style:none; display:grid; gap:12px; margin-bottom:28px; flex:1; }
+    .plan li { font-size:15px; padding-left:28px; position:relative; line-height:1.4; }
+    .plan li::before { content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
+    .plan .fine { margin-top:16px; }
+    .toggle { display:grid; grid-template-columns:1fr 1fr; background:rgba(0,0,0,.35); border-radius:30px; padding:4px; margin-bottom:22px; }
+    .toggle button { border:0; background:none; color:#fff; font:inherit; font-size:14px; font-weight:700; height:38px; border-radius:30px; cursor:pointer; }
+    .toggle button.on { background:#fff; color:#000; }
+    .prepaid { display:none; margin-bottom:22px; }
+    .prepaid.show { display:block; }
+    .prepaid .price { font-size:26px; }
+    .prepaid .save { display:inline-block; background:var(--green); color:#000; font-size:12px; font-weight:700; padding:4px 10px; border-radius:20px; margin-top:10px; }
+    .monthly.hide { display:none; }
+    .free-link { text-align:center; margin-top:44px; }
+    .free-link a { font-weight:700; text-decoration:underline; }
 
-        /* Name */
-        .name-box {
-            margin-bottom: 40px;
-        }
+    /* Footer */
+    footer { background:var(--black); padding:64px 40px 40px; }
+    .foot-top { display:flex; gap:60px; flex-wrap:wrap; max-width:1180px; margin:0 auto; }
+    .foot-top img { width:40px; height:40px; }
+    .foot-cols { display:flex; gap:70px; flex-wrap:wrap; flex:1; }
+    .foot-cols h4 { font-size:13px; color:var(--muted); margin-bottom:18px; }
+    .foot-cols ul { list-style:none; display:grid; gap:14px; }
+    .foot-cols a { font-size:16px; font-weight:700; }
+    .foot-cols a:hover { color:var(--green); text-decoration:underline; }
+    .foot-bottom { max-width:1180px; margin:56px auto 0; display:flex; flex-wrap:wrap; gap:14px 28px; color:var(--muted); font-size:13px; }
+    .foot-bottom a:hover { color:#fff; text-decoration:underline; }
+    .foot-bottom .copy { margin-left:auto; }
 
-        .name-box label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .name-box input {
-            width: 350px;
-            max-width: 90%;
-            padding: 14px;
-            border-radius: 5px;
-            border: 1px solid #777;
-            background: #242424;
-            color: white;
-            font-size: 16px;
-        }
-
-        .name-box input:focus {
-            outline: 2px solid #1ed760;
-        }
-
-        /* Plans */
-        .plans {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            text-align: left;
-        }
-
-        .plan {
-            background: #242424;
-            border-radius: 12px;
-            padding: 25px;
-            min-height: 420px;
-            border: 1px solid #444;
-        }
-
-        .plan:hover {
-            border: 1px solid #1ed760;
-            transform: translateY(-5px);
-            transition: 0.3s;
-        }
-
-        .plan h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .price {
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .features li {
-            margin: 14px 0;
-            color: #ddd;
-        }
-
-        .features li::before {
-            content: "✓";
-            color: #1ed760;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .choose {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 25px;
-            background: #1ed760;
-            color: black;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .choose:hover {
-            background: #1fdf64;
-            transform: scale(1.03);
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .plans {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .plans {
-                grid-template-columns: 1fr;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-        }
-    </style>
+    @media (max-width:1000px) {
+      .feat-grid { grid-template-columns:repeat(2,1fr); }
+      .plan-grid { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
+      .story .wrap { grid-template-columns:1fr; }
+      .reel { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:800px) {
+      .nav, .nav-right > a:not(.btn) { display:none; }
+      header { padding:0 20px; height:68px; }
+    }
+    @media (max-width:560px) {
+      .hero, .intro, .features, .story, .moments, .plans { padding-left:20px; padding-right:20px; }
+      .hero { padding-top:70px; padding-bottom:60px; }
+      .feat-grid, .reel { grid-template-columns:1fr; }
+      footer { padding:48px 20px 32px; }
+      .foot-bottom .copy { margin-left:0; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { transition:none !important; } html { scroll-behavior:auto; } }
+  </style>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
 </head>
-
 <body>
+  <a class="skip" href="#plans">Skip to plans</a>
 
-    <div class="header">
-        <div class="logo">BeatBox</div>
-
-        <a href="index.html" class="back">
-            ← Back
-        </a>
+  <header>
+    <a href="index.html" class="brand" aria-label="BeatBox home">
+      <img src="logo.svg" alt="" width="44" height="44" />
+      <span>BeatBox</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <div class="dd">
+        <button type="button" aria-haspopup="true">Premium plans ▾</button>
+        <div class="dd-menu">
+          <a href="#plans"><strong>Premium Standard</strong><span>Your music. Your way. Everywhere – 1 account.</span></a>
+          <a href="#plans"><strong>Premium Platinum</strong><span>Listen on a whole new level – up to 3 accounts.</span></a>
+          <a href="#plans"><strong>Premium Student</strong><span>1 account – discount for eligible students.</span></a>
+        </div>
+      </div>
+      <a href="support.html">Support</a>
+      <a href="download.html">Download</a>
+    </nav>
+    <div class="nav-right">
+      <a href="signup.html">Sign up</a>
+      <a href="login.html">Log in</a>
+      <a href="checkout.html?plan=standard" class="btn btn-white">Get Premium Standard</a>
     </div>
+  </header>
 
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <h1>The ultimate home for <span>music</span><span>artists</span><span>fans</span></h1>
+      <div class="cta">
+        <a href="checkout.html?plan=standard" class="btn btn-white">Get Premium Standard</a>
+        <a href="#plans" class="btn btn-outline">View all plans</a>
+      </div>
+      <p class="fine">Limited time offer. Limited eligibility. <a href="info.html?page=legal" style="text-decoration:underline">Terms apply</a>.</p>
+      <div class="hero-covers" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJaGBj3lWJoD3rH629ggin6a5oMQceoj6rbntEvoyRuQ&s=10" alt="" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMOIc5K3zNRUBiT-NvULxg07v5VfoNjkzOqzzVg4vsuw&s=10" alt="" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnXsbbcFEYw4YnJ2vBunWQFFmfoOfBBL6PVSgJ_2rJfA&s" alt="" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6bnB3rx6z9Hzp41Y-lkA1UF56sBg5nWWzH1bnJqJIwA&s=10" alt="" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpmXgcQ-i7jSVNv-BX9DKYUCrRyAbAAqKilXHOvKj80A&s" alt="" referrerpolicy="no-referrer" /></div>
+    </section>
 
-    <div class="container">
+    <section class="intro">
+      <h2>As the world’s music hub, BeatBox is where fans and artists come together.</h2>
+      <p>It’s the place to discover the perfect song for the moment. The place that brings music to your whole life.</p>
+    </section>
 
-        <h1>Choose your Premium plan</h1>
+    <!-- Standard features -->
+    <section class="features">
+      <div class="wrap">
+        <p class="eyebrow">Premium Standard</p>
+        <h2>Made for fans who want more</h2>
+        <div class="feat-grid">
+          <div class="feat"><h3>Ad-free music listening</h3><p>All the music, without all the ads. Just non-stop beats.</p></div>
+          <div class="feat"><h3>Very high audio quality</h3><p>Dive deeper into music with sound quality up to ~320 kbps.</p></div>
+          <div class="feat"><h3>Offline listening</h3><p>Download thousands of songs, or let Offline Backup do it for you.</p></div>
+          <div class="feat"><h3>Full control over what plays next</h3><p>Repeat songs, play albums in order, and skip as many times as you want.</p></div>
+        </div>
+        <div class="feat-cta">
+          <a href="checkout.html?plan=standard" class="btn btn-green" data-plan="standard">Try 2 months for ₹139</a>
+          <a href="#plans" class="btn btn-outline">View all plans</a>
+        </div>
+        <p class="fine">₹139 for 2 months, then ₹139 per month after. Offer only available if you haven’t tried Premium before. Terms apply.</p>
+      </div>
+    </section>
 
-        <p class="subtitle">
-            Listen without limits. Choose the plan that's right for you.
-        </p>
+    <!-- Discover -->
+    <section class="story">
+      <div class="wrap">
+        <div>
+          <h2>Fresh ways to discover music</h2>
+          <p class="lead">Made for you, with you.</p>
+          <ul>
+            <li>Watch where you listen with just one tap</li>
+            <li>Your Wrapped at the end of the year</li>
+            <li>Soundtrack your mood with daylist</li>
+          </ul>
+        </div>
+        <div class="art" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpmXgcQ-i7jSVNv-BX9DKYUCrRyAbAAqKilXHOvKj80A&s" alt="" loading="lazy" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIqVfj5g6w22kHLiMoTC9nigAhhFff2DSG7Hf9oTnq6g&s" alt="" loading="lazy" referrerpolicy="no-referrer" /><img src="https://i1.sndcdn.com/artworks-BYEX2XWX2nrP-0-t500x500.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT34oLzC3Cet0Qbk9Q8XW14GyBACm1eXzJB9V9ekdHtZQ&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div>
+      </div>
+    </section>
 
+    <!-- Together -->
+    <section class="story alt">
+      <div class="wrap">
+        <div class="art" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_rllSguWyNiTSvOSYKVi57JvzUk7NFjwTQmH5zitXZQ&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7sQncJS8SlOjxeztp9Ty88KRQMyVLQDporO-5BYnGEg&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI6Nm_gP3DrryweprBvAplffriutqjG6bWZ7KMN9rgOQ&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrdFnHPdq2h8kOhE81NmEevT76OvJa3G6liDGKzJiTA&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div>
+        <div>
+          <h2>The best place to listen, together</h2>
+          <p class="lead">Where artists and fans meet through music.</p>
+          <ul>
+            <li>Play any song with friends in real time with Jam</li>
+            <li>Discover your taste match with Blend</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Moments -->
+    <section class="moments">
+      <div class="wrap">
+        <h2 class="section-title">Shaping the big moments in music</h2>
+        <p class="lead">BeatBox is where music breaks and culture moves. Be here when history hits play.</p>
+        <div class="reel">
+          <figure class="shot"><div class="pic" aria-hidden="true"><img src="https://i1.sndcdn.com/artworks-BYEX2XWX2nrP-0-t500x500.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" /></div><p>Lighting up the stage at a film album launch.</p></figure>
+          <figure class="shot"><div class="pic" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT34oLzC3Cet0Qbk9Q8XW14GyBACm1eXzJB9V9ekdHtZQ&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div><p>Hyping up the crowd at an event for fans.</p></figure>
+          <figure class="shot"><div class="pic" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_rllSguWyNiTSvOSYKVi57JvzUk7NFjwTQmH5zitXZQ&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div><p>Bringing the vibes at an invite-only party.</p></figure>
+          <figure class="shot"><div class="pic" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7sQncJS8SlOjxeztp9Ty88KRQMyVLQDporO-5BYnGEg&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div><p>A magical evening on a well-lit stage.</p></figure>
+          <figure class="shot"><div class="pic" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI6Nm_gP3DrryweprBvAplffriutqjG6bWZ7KMN9rgOQ&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div><p>Mid-rap at a live party.</p></figure>
+          <figure class="shot"><div class="pic" aria-hidden="true"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrdFnHPdq2h8kOhE81NmEevT76OvJa3G6liDGKzJiTA&s=10" alt="" loading="lazy" referrerpolicy="no-referrer" /></div><p>Owning the stage for an album launch.</p></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section class="plans" id="plans">
+      <div class="wrap">
+        <div class="head">
+          <h2>The world is listening here.</h2>
+          <p>There’s a plan for everyone. Join the party.</p>
         </div>
 
+        <div class="plan-grid">
+          <!-- Standard -->
+          <article class="plan standard">
+            <span class="badge">₹139 for 2 months</span>
+            <p class="kind">Premium</p>
+            <h3>Standard</h3>
 
-        <!-- PLANS -->
-        <div class="plans">
-
-            <!-- FREE -->
-            <div class="plan">
-
-                <h2>Free</h2>
-
-                <div class="price">₹0 / month</div>
-
-                <ul class="features">
-                    <li>Ad-supported music</li>
-                    <li>Shuffle play</li>
-                    <li>Basic audio quality</li>
-                    <li>Limited skips</li>
-                </ul>
-
-                <button class="choose">
-                    Continue Free
-                </button>
-
+            <div class="toggle" role="tablist" aria-label="Payment type">
+              <button type="button" class="on" id="tabMonthly" role="tab" aria-selected="true">Subscribe</button>
+              <button type="button" id="tabPrepaid" role="tab" aria-selected="false">One-time payment</button>
             </div>
 
-
-            <!-- STANDARD -->
-            <div class="plan">
-
-                <h2>Premium Standard</h2>
-
-                <div class="price">₹139 / month</div>
-
-                <ul class="features">
-                    <li>Ad-free music</li>
-                    <li>Download music</li>
-                    <li>Very high audio quality</li>
-                    <li>Play songs in any order</li>
-                </ul>
-
-                <button class="choose">
-                    Get Standard
-                </button>
-
+            <div class="monthly" id="monthlyBox">
+              <p class="price">₹139 for 2 months</p>
+              <p class="price-sub">₹139/month after</p>
+            </div>
+            <div class="prepaid" id="prepaidBox">
+              <p class="price">₹799 for 1 year</p>
+              <p class="price-sub">Equivalent to ₹66.59 per month. Pay once in advance, top up when you want. Does not auto-renew.</p>
+              <span class="save">Save ₹869</span>
             </div>
 
+            <hr />
+            <ul>
+              <li>1 Standard account</li>
+              <li>Download to listen offline</li>
+              <li>Very high audio quality (up to ~320kbps)</li>
+              <li>Cancel anytime</li>
+              <li>Subscribe or one-time payment</li>
+            </ul>
+            <a href="checkout.html?plan=standard" class="btn btn-white btn-block" id="stdCta" data-plan="standard">Try 2 months for ₹139</a>
+            <p class="fine">₹139 for 2 months, then ₹139 per month after. Offer only available if you haven’t tried Premium before. Terms apply.</p>
+          </article>
 
-            <!-- PLATINUM -->
-            <div class="plan">
+          <!-- Platinum -->
+          <article class="plan platinum">
+            <span class="badge">Premium</span>
+            <p class="kind">Premium</p>
+            <h3>Platinum</h3>
+            <p class="price">₹299 / month</p>
+            <p class="price-sub">&nbsp;</p>
+            <hr />
+            <ul>
+              <li>Up to 3 Platinum accounts</li>
+              <li>Download to listen offline</li>
+              <li>Lossless audio quality (up to ~24-bit/44.1kHz)</li>
+              <li>Mix your playlists</li>
+              <li>Your personal AI DJ</li>
+              <li>AI playlist creation</li>
+              <li>Connect your DJ software</li>
+              <li>Cancel anytime</li>
+            </ul>
+            <a href="checkout.html?plan=platinum" class="btn btn-white btn-block" data-plan="platinum">Get Premium Platinum</a>
+            <p class="fine">For up to 3 individuals residing at the same address. Terms apply.</p>
+          </article>
 
-                <h2>Premium Platinum</h2>
-
-                <div class="price">₹299 / month</div>
-
-                <ul class="features">
-                    <li>Everything in Standard</li>
-                    <li>Lossless audio</li>
-                    <li>AI DJ</li>
-                    <li>AI playlist creation</li>
-                </ul>
-
-                <button class="choose">
-                    Get Platinum
-                </button>
-
-            </div>
-
-
-            <!-- STUDENT -->
-            <div class="plan">
-
-                <h2>Premium Student</h2>
-
-                <div class="price">₹69 / month</div>
-
-                <ul class="features">
-                    <li>Ad-free music</li>
-                    <li>Download music</li>
-                    <li>Very high audio quality</li>
-                    <li>Student discount</li>
-                </ul>
-
-                <button class="choose">
-                    Get Student
-                </button>
-
-            </div>
-
+          <!-- Student -->
+          <article class="plan student">
+            <span class="badge">Savings available</span>
+            <p class="kind">Premium</p>
+            <h3>Student</h3>
+            <p class="price">₹69 for 2 months</p>
+            <p class="price-sub">₹69/month after</p>
+            <hr />
+            <ul>
+              <li>1 verified Standard account</li>
+              <li>Download to listen offline</li>
+              <li>Very high audio quality (up to ~320kbps)</li>
+              <li>Cancel anytime</li>
+            </ul>
+            <a href="checkout.html?plan=student" class="btn btn-white btn-block" data-plan="student">Try 2 months for ₹69</a>
+            <p class="fine">₹69 for 2 months, then ₹69 per month after. Offer reserved for students enrolled in an eligible accredited institution of higher education. Not available to users who have already tried Premium.</p>
+          </article>
         </div>
 
-    </div>
+        <p class="free-link"><a href="signup.html">Or sign up to BeatBox for free.</a></p>
+      </div>
+    </section>
+  </main>
 
+  <footer>
+    <div class="foot-top">
+      <a href="index.html" aria-label="BeatBox home"><img src="logo.svg" alt="" width="44" height="44" /></a>
+      <div class="foot-cols">
+        <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="info.html?page=jobs">Jobs</a></li><li><a href="info.html?page=record">For the Record</a></li></ul></div>
+        <div><h4>Communities</h4><ul><li><a href="info.html?page=artists">For Artists</a></li><li><a href="info.html?page=artists">For creators</a></li><li><a href="info.html?page=developers">Developers</a></li><li><a href="info.html?page=advertising">Advertising</a></li><li><a href="info.html?page=investors">Investors</a></li></ul></div>
+        <div><h4>Useful links</h4><ul><li><a href="support.html">Support</a></li><li><a href="index.html">Web Player</a></li><li><a href="download.html">Free Mobile App</a></li></ul></div>
+        <div><h4>BeatBox Plans</h4><ul><li><a href="#plans">Premium Standard</a></li><li><a href="#plans">Premium Platinum</a></li><li><a href="#plans">Premium Student</a></li><li><a href="signup.html">BeatBox Free</a></li></ul></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <a href="info.html?page=legal">Legal</a><a href="info.html?page=safety">Safety and Privacy Centre</a><a href="info.html?page=privacy">Privacy Policy</a><a href="info.html?page=cookies">Cookies</a><a href="info.html?page=ads">About Ads</a><a href="info.html?page=accessibility">Accessibility</a>
+      <span class="copy">© 2026 BeatBox</span>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script>
+    // Standard plan: subscribe vs one-time payment
+    const tabMonthly = document.getElementById("tabMonthly");
+    const tabPrepaid = document.getElementById("tabPrepaid");
+    const monthlyBox = document.getElementById("monthlyBox");
+    const prepaidBox = document.getElementById("prepaidBox");
+    const stdCta = document.getElementById("stdCta");
+
+    function setMode(prepaid) {
+      tabMonthly.classList.toggle("on", !prepaid);
+      tabPrepaid.classList.toggle("on", prepaid);
+      tabMonthly.setAttribute("aria-selected", String(!prepaid));
+      tabPrepaid.setAttribute("aria-selected", String(prepaid));
+      monthlyBox.classList.toggle("hide", prepaid);
+      prepaidBox.classList.toggle("show", prepaid);
+      stdCta.textContent = prepaid ? "Continue" : "Try 2 months for ₹139";
+      stdCta.dataset.plan = prepaid ? "prepaid" : "standard";
+      stdCta.href = "checkout.html?plan=" + (prepaid ? "prepaid" : "standard");
+      markCurrent();
+    }
+    // If you're logged in, show which plan you already have
+    function markCurrent() {
+      const acc = window.Auth && Auth.current();
+      document.querySelectorAll("[data-plan]").forEach((a) => {
+        const mine = acc && acc.plan === a.dataset.plan;
+        if (mine) { a.textContent = "Your current plan"; a.href = "account.html"; }
+      });
+    }
+    window.addEventListener("DOMContentLoaded", markCurrent);
+
+    tabMonthly.addEventListener("click", () => setMode(false));
+    tabPrepaid.addEventListener("click", () => setMode(true));
+  </script>
 </body>
 </html>
