@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BeatBox</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#121212;color:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+header{height:72px;background:#000;display:flex;align-items:center;gap:28px;padding:0 32px}
+.brand{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:800;letter-spacing:-1px;text-decoration:none}
+.brand img{width:38px;height:38px}
+header nav{margin-left:auto;display:flex;gap:24px}
+header nav a{font-weight:700;font-size:15px;text-decoration:none}
+header nav a:hover{color:#1ed760}
+main{max-width:860px;margin:0 auto;padding:60px 24px 90px}
+h1{font-size:clamp(34px,6vw,60px);letter-spacing:-2px;line-height:1.05;margin-bottom:18px}
+.lead{color:#b3b3b3;font-size:20px;margin-bottom:34px;line-height:1.5}
+p{line-height:1.7;margin-bottom:16px;color:#d6d6d6}
+.btn{display:inline-block;background:#1ed760;color:#000;font-weight:700;border:none;border-radius:30px;padding:14px 30px;font-size:16px;cursor:pointer;text-decoration:none;transition:transform .15s ease}
+.btn:hover{transform:scale(1.04);background:#3be477}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #727272}
+.btn.ghost:hover{border-color:#fff;background:transparent}
+footer{text-align:center;color:#b3b3b3;font-size:13px;padding:30px}
+.toast{position:fixed;left:50%;bottom:40px;transform:translate(-50%,20px);background:#fff;color:#000;font-weight:700;padding:12px 24px;border-radius:8px;opacity:0;pointer-events:none;transition:all .2s ease}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.back{display:inline-block;margin-bottom:26px;color:#b3b3b3;text-decoration:none;font-weight:700}
+.back:hover{color:#fff}
+.note{margin-top:34px;padding:18px 22px;background:#1f1f1f;border-radius:10px;color:#b3b3b3;font-size:14px}
+</style>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html" aria-label="BeatBox home"><img src="logo.svg" alt="" width="44" height="44" /><span>BeatBox</span></a>
+  <nav><a href="premium.html">Premium</a><a href="support.html">Support</a><a href="download.html">Download</a></nav>
+</header>
+<main>
+  <a class="back" href="index.html">← Back to BeatBox</a>
+  <h1 id="title">BeatBox</h1>
+  <p class="lead" id="lead"></p>
+  <div id="body"></div>
+  <p class="note">BeatBox is a learning project that recreates the look of a music streaming site. This page is sample text, not a real company policy.</p>
+</main>
+<script>
+const PAGES = {
+  jobs: ["Jobs", "Build the future of listening.", ["There are no open roles right now, because BeatBox is a student project.", "In a real company this page would list teams, locations and how to apply."]],
+  record: ["For the Record", "Stories and news from BeatBox.", ["This is where announcements, product updates and press releases would appear."]],
+  artists: ["For Artists", "Share your music with the world.", ["Artists would upload songs, see listener numbers and manage their profile here.", "In this clone, songs are added by editing the audio folder and the home page cards."]],
+  developers: ["Developers", "Build with BeatBox.", ["A real developer page would document APIs for search, playlists and playback.", "This project is built with plain HTML, CSS and JavaScript."]],
+  advertising: ["Advertising", "Reach listeners while they listen.", ["Ad-supported free plans pay for music. A real site would explain ad formats and targeting here."]],
+  investors: ["Investors", "Company information.", ["Financial reports and investor news would be listed on this page."]],
+  vendors: ["Vendors", "Work with BeatBox.", ["Information for suppliers and partners would appear here."]],
+  popular: ["Popular by Country", "See what the world is playing.", ["Country charts would be listed here. For now, try the Featured Charts on the home page."]],
+  legal: ["Legal", "Terms and conditions.", ["Terms of use, copyright notices and licensing details would be listed here.", "The songs and photos in this clone belong to their owners. Replace them with your own or free-to-use content before publishing the site."]],
+  safety: ["Safety & Privacy Center", "Your safety matters.", ["This page would explain how accounts are protected and how to report a problem."]],
+  privacy: ["Privacy Policy", "How we handle your data.", ["In this clone, your email, playlists and liked songs are stored only in your own browser (localStorage). Nothing is sent to a server."]],
+  cookies: ["Cookies", "About cookies and storage.", ["This site uses your browser's local storage to remember your login, playlists, volume and last played song.", "Clearing your browser data removes all of it."]],
+  ads: ["About Ads", "How ads work.", ["A real free plan would show ads between songs. This clone does not show ads."]],
+  accessibility: ["Accessibility", "Music for everyone.", ["BeatBox supports keyboard navigation and screen reader labels on its main controls. Press Space to play or pause, and Esc to close menus."]]
+};
+const key = new URLSearchParams(location.search).get("page");
+const p = PAGES[key] || ["BeatBox", "Page not found.", ["We couldn’t find that page. Head back to the home page to keep listening."]];
+document.title = p[0] + " - BeatBox";
+document.getElementById("title").textContent = p[0];
+document.getElementById("lead").textContent = p[1];
+document.getElementById("body").innerHTML = p[2].map(t => "<p></p>").join("");
+document.querySelectorAll("#body p").forEach((el, i) => el.textContent = p[2][i]);
+</script>
+<footer>© 2026 BeatBox · A student project inspired by Spotify</footer>
+</body>
+</html>

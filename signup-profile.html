@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign up - BeatBox</title>
+<link rel="stylesheet" href="auth.css" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body class="auth-base">
+<main class="a-page">
+  <a href="index.html" aria-label="BeatBox home"><img class="a-logo" src="logo.svg" alt="" width="44" height="44" /></a>
+  <p class="a-step">Step 2 of 3</p>
+  <h1>Tell us about yourself</h1>
+  <form id="f" novalidate>
+    <div class="a-group">
+      <label class="a-label" for="name">Name</label>
+      <input class="a-input" id="name" type="text" maxlength="40" autocomplete="name" />
+      <p class="a-hint">This appears on your profile.</p>
+      <div class="a-err" id="eName" role="alert"></div>
+    </div>
+    <div class="a-group">
+      <span class="a-label">Date of birth</span>
+      <div class="a-row">
+        <input class="a-input" id="dd" inputmode="numeric" maxlength="2" placeholder="dd" aria-label="Day" />
+        <select class="a-select" id="mm" aria-label="Month"><option value="">Month</option><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select>
+        <input class="a-input" id="yy" inputmode="numeric" maxlength="4" placeholder="yyyy" aria-label="Year" />
+      </div>
+      <div class="a-err" id="eDob" role="alert"></div>
+    </div>
+    <div class="a-group">
+      <span class="a-label">Gender</span>
+      <div class="a-radios">
+        <label><input type="radio" name="g" value="Man" /> Man</label>
+        <label><input type="radio" name="g" value="Woman" /> Woman</label>
+        <label><input type="radio" name="g" value="Non-binary" /> Non-binary</label>
+        <label><input type="radio" name="g" value="Something else" /> Something else</label>
+        <label><input type="radio" name="g" value="Prefer not to say" /> Prefer not to say</label>
+      </div>
+      <div class="a-err" id="eGender" role="alert"></div>
+    </div>
+    <label class="a-check"><input type="checkbox" id="mkt" /> <span>I’d like to receive news and offers from BeatBox.</span></label>
+    <label class="a-check"><input type="checkbox" id="terms" /> <span>I agree to the BeatBox <a href="info.html?page=legal" target="_blank" rel="noopener">Terms of Use</a> and <a href="info.html?page=privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+    <div class="a-err" id="eTerms" role="alert"></div>
+    <button class="a-btn" type="submit" id="go">Sign up</button>
+  </form>
+</main>
+<script src="auth.js"></script>
+<script>
+const data = JSON.parse(sessionStorage.getItem("beatboxSignup") || "null");
+if (!data || !data.email || !data.password) location.replace("signup.html");
+const $ = (id) => document.getElementById(id);
+const show = (id, msg) => { $(id).textContent = msg; $(id).classList.add("show"); };
+document.getElementById("f").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  ["eName", "eDob", "eGender", "eTerms"].forEach((i) => $(i).classList.remove("show"));
+  let ok = true;
+  const name = $("name").value.trim();
+  if (!name) { show("eName", "Enter a name for your profile."); ok = false; }
+  const d = +$("dd").value, m = +$("mm").value, y = +$("yy").value;
+  const dt = new Date(y, m - 1, d);
+  if (!d || !m || !y || String(y).length !== 4 || dt.getDate() !== d || dt.getMonth() !== m - 1) { show("eDob", "Enter your date of birth."); ok = false; }
+  else if (dt > new Date()) { show("eDob", "Date of birth can’t be in the future."); ok = false; }
+  else {
+    const now = new Date();
+    let age = now.getFullYear() - y;
+    if (now < new Date(now.getFullYear(), m - 1, d)) age--;
+    if (age < 13) { show("eDob", "Sorry, you need to be at least 13 to use BeatBox."); ok = false; }
+  }
+  const g = document.querySelector('input[name="g"]:checked');
+  if (!g) { show("eGender", "Select your gender."); ok = false; }
+  if (!$("terms").checked) { show("eTerms", "You need to accept the Terms of Use and Privacy Policy to continue."); ok = false; }
+  if (!ok) return;
+  $("go").disabled = true;
+  try {
+    await Auth.signup({ email: data.email, password: data.password, name, dob: y + "-" + String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0"), gender: g.value, marketing: $("mkt").checked });
+    sessionStorage.removeItem("beatboxSignup");
+    location.href = Auth.next();
+  } catch (err) {
+    $("go").disabled = false;
+    show("eTerms", "That email is already registered. Please log in instead.");
+  }
+});
+</script>
+</body>
+</html>

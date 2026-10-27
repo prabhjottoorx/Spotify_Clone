@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Payment successful - BeatBox</title>
+<link rel="stylesheet" href="auth.css" />
+<style>
+.wrap{max-width:980px;margin:0 auto;padding:36px 20px 80px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}
+.top a.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:24px;font-weight:800;letter-spacing:-1px}
+.top .a-logo{margin:0;width:34px;height:34px}
+.top nav a{color:#b3b3b3;text-decoration:none;font-weight:700;margin-left:20px}
+.top nav a:hover{color:#fff}
+.auth-base h1{font-size:clamp(30px,5vw,44px)}
+.panel{background:#1f1f1f;border-radius:14px;padding:26px;margin-bottom:20px}
+.panel h2{font-size:20px;margin-bottom:16px}
+.muted{color:#b3b3b3;font-size:14px;line-height:1.5}
+.btn2{display:inline-block;background:transparent;color:#fff;border:1px solid #727272;border-radius:30px;padding:11px 22px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn2:hover{border-color:#fff}
+.btn2.danger{color:#f15e6c;border-color:#f15e6c}
+.btn2.green{background:#1ed760;color:#000;border-color:#1ed760}
+.auth-base .a-btn.inline{width:auto;padding:0 30px;height:46px;font-size:15px;display:inline-block}
+.toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,20px);background:#fff;color:#000;font-weight:700;padding:12px 24px;border-radius:8px;opacity:0;pointer-events:none;transition:all .2s ease;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.sum-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #333;font-size:15px}
+.sum-row:last-child{border-bottom:none}
+</style>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body class="auth-base">
+<div class="wrap">
+  <div class="top"><a class="brand" href="index.html"><img class="a-logo" src="logo.svg" alt="" width="44" height="44" /><span>BeatBox</span></a>
+    <nav><a href="premium.html">Premium</a><a href="support.html">Support</a><a href="index.html">Web Player</a></nav></div>
+  <div class="panel" style="max-width:560px;margin:30px auto;text-align:center">
+    <div style="font-size:54px;margin-bottom:6px">🎉</div>
+    <h1 style="margin-bottom:8px">You’re all set!</h1>
+    <p class="muted" id="msg" style="margin-bottom:24px"></p>
+    <div style="text-align:left;margin-bottom:24px">
+      <div class="sum-row"><span class="muted">Plan</span><span id="rPlan"></span></div>
+      <div class="sum-row"><span class="muted">Amount paid</span><span id="rAmt"></span></div>
+      <div class="sum-row"><span class="muted">Payment method</span><span id="rMethod"></span></div>
+      <div class="sum-row"><span class="muted" id="rNextL">Next billing</span><span id="rNext"></span></div>
+      <div class="sum-row"><span class="muted">Receipt number</span><span id="rId"></span></div>
+    </div>
+    <a class="btn2 green" href="index.html">Start listening</a>
+    <a class="btn2" href="account.html" style="margin-left:8px">Manage plan</a>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="auth.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+function toast(m) { const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 2600); }
+const money = (n) => "₹" + n.toLocaleString("en-IN");
+const fmtDate = (ts) => new Date(ts).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+const acc = Auth.current();
+const id = new URLSearchParams(location.search).get("id");
+const pay = acc && (acc.payments || []).find((p) => p.id === id);
+if (!pay) location.replace("premium.html");
+else {
+  $("msg").textContent = "Welcome to " + pay.planName + ". Enjoy ad-free music.";
+  $("rPlan").textContent = pay.planName; $("rAmt").textContent = money(pay.amount);
+  $("rMethod").textContent = pay.method; $("rId").textContent = pay.id;
+  $("rNextL").textContent = acc.recurring ? "Next billing" : "Plan ends";
+  $("rNext").textContent = acc.nextBilling ? fmtDate(acc.nextBilling) : "-";
+}
+</script>
+</body>
+</html>
