@@ -1,603 +1,447 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatBox</title>
 
-    <title>Spotify Clone</title>
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  </head>
 
-<body>
-
+  <body>
+    <a class="skip-link" href="#homeView" id="skipLink">Skip to main content</a>
     <!-- NAVBAR -->
 
-    <header class="navbar">
+    <header class="navbar" role="banner">
+      <a class="logo" href="index.html" aria-label="BeatBox home">
+        <img src="logo.svg" alt="" width="44" height="44" />
+      </a>
 
-        <div class="logo">🎧</div>
+      <button class="home-btn" id="homeBtn" aria-label="Home">
+        <i class="fa-solid fa-house"></i>
+      </button>
 
-        <button class="home-btn">
-            <i class="fa-solid fa-house"></i>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="What do you want to play?"
+          autocomplete="off"
+          aria-label="Search songs and artists"
+        />
+        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <span class="search-divider"></span>
+        <button type="button" class="browse-btn" id="browseBtn" aria-label="Browse all">
+          <i class="fa-solid fa-box-archive"></i>
+        </button>
+      </div>
+
+      <div class="nav-links">
+        <a href="premium.html" class="premium-btn">Premium</a>
+        <a href="support.html" class="support-btn">Support</a>
+        <a href="download.html">Download</a>
+
+        <span class="line"></span>
+
+        <a href="download.html">
+          <i class="fa-regular fa-circle-down"></i>
+          Install App
+        </a>
+
+        <!-- Added IDs to these so we can hide them in JS -->
+        <a href="signup.html" id="navSignup">Sign up</a>
+
+        <button class="login-btn" id="navLogin">
+          <a href="login.html" style="color: black; text-decoration: none"
+            >Log in</a
+          >
         </button>
 
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="What do you want to play?">
-            <i class="fa-solid fa-folder-open"></i>
-        </div>
-        
-      
-
-        <div class="nav-links">
-
-            <a href="premium.html" class="premium-btn">Premium</a>
-            <a href="support.html" class="support-btn">Support</a>
-            <a href="#">Download</a>
-
-            <span class="line"></span>
-
-            <a href="#">
-                <i class="fa-regular fa-circle-down"></i>
-                Install App
-            </a>
-
-            <a href="signup.html">Sign up</a>
-
-            <button class="login-btn">
-                <a href="login.html" style="color: black;">Log in</a>
-            </button>
-
-        </div>
-
-        <button class="hamburger" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars" id="menuIcon"></i>
+        <!-- Profile button (hidden by default) -->
+        <button
+          class="profile-btn"
+          id="navProfile"
+          style="display: none"
+          onclick="toggleProfileMenu(event)"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Profile menu"
+        >
+          <span id="profileInitial">U</span>
         </button>
+      </div>
 
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="hamburgerMenu">
+        <i class="fa-solid fa-bars" id="menuIcon"></i>
+      </button>
     </header>
-    <div class="hamburger-menu" id="hamburgerMenu">
+    <!-- PROFILE MENU -->
+    <div class="profile-menu" id="profileMenu" role="menu" hidden>
+      <div class="pm-user" id="pmUser"></div>
+      <a href="account.html" role="menuitem">Account <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="index.html#profile" role="menuitem">Profile</a>
+      <a href="premium.html" role="menuitem">Upgrade to Premium <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="support.html" role="menuitem">Support <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <a href="download.html" role="menuitem">Download <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <hr />
+      <button type="button" role="menuitem" onclick="logout()">Log out</button>
+    </div>
 
-    <a href="premium.html">
+    <div class="hamburger-menu" id="hamburgerMenu">
+      <a href="premium.html">
         <span>Premium</span>
         <span>↗</span>
-    </a>
+      </a>
 
-    <a href="support.html">
+      <a href="support.html">
         <span>Support</span>
         <span>↗</span>
-    </a>
+      </a>
 
-    <a href="#">
+      <a href="download.html">
         <span>Download</span>
         <span>↗</span>
-    </a>
+      </a>
 
-    <a href="signup.html">
+      <a href="signup.html">
         <span>Sign up</span>
         <span>↗</span>
-    </a>
+      </a>
 
-    <a href="login.html">
+      <a href="login.html">
         <span>Log in</span>
         <span>↗</span>
-    </a>
-
-</div>
-
+      </a>
+    </div>
 
     <!--MAIN-->
 
     <div class="layout">
-
-
-        <!--SIDEBAR-->
-
-        <aside class="sidebar">
-
-            <div class="library-header">
-
-                <h3>Your Library</h3>
-
-                <button class="create-btn">
-                    <i class="fa-solid fa-plus"></i>
-                    Create
-                </button>
-
-            </div>
-
-
-            <!--Playlist Box-->
-
-            <div class="side-box">
-
-                <h3>Create your first playlist</h3>
-
-                <p>It's easy, we'll help you</p>
-
-                <button>
-                    Create playlist
-                </button>
-
-            </div>
-
-
-            <!-- Podcast Box -->
-
-            <div class="side-box">
-
-                <h3>Let's find some podcasts to follow</h3>
-
-                <p>We'll keep you updated on new episodes</p>
-
-                <button>
-                    Browse podcasts
-                </button>
-
-            </div>
-
-
-            <!-- Sidebar Footer -->
-
-            <div class="side-footer">
-
-                <div>
-                    <a href="#">Legal</a>
-                    <a href="#">Safety & Privacy Center</a>
-                    <a href="#">Privacy Policy</a>
-                </div>
-
-                <div>
-                    <a href="#">Cookies</a>
-                    <a href="#">About Ads</a>
-                    <a href="#">Accessibility</a>
-                </div>
-
-                <a href="#">Cookies</a>
-
-                <button class="language">
-                    <i class="fa-solid fa-globe"></i>
-                    English
-                </button>
-
-            </div>
-
-        </aside>
-
-
-        <!-- CONTENT -->
-
-        <main class="content">
-
-
-            <!-- TRENDING SONGS -->
-
-            <section>
-
-                <div class="section-header">
-
-                    <h2>Trending songs</h2>
-
-                    <a href="#">Show all</a>
-
-                </div>
-
-
-                <div class="card-container">
-
-                    <div class="music-card">
-
-                        <div class="image-box">
-                            <img src="data:image/jpeg;base64,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">
-
-                            <button class="play-btn">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <h3>Dealer</h3>
-                        <p>Mankirat Aulakh</p>
-
-                    </div>
-
-                    <div class="music-card">
-
-                        <div class="image-box">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIqVfj5g6w22kHLiMoTC9nigAhhFff2DSG7Hf9oTnq6g&s">
-
-                            <button class="play-btn">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <h3>7 Days</h3>
-                        <p>Laddi Chajjla</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="image-box">
-                            <img src="https://i1.sndcdn.com/artworks-BYEX2XWX2nrP-0-t500x500.jpg">
-
-                            <button class="play-btn">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <h3>Concrete Dreams</h3>
-                        <p>Jordan Sandhu</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="image-box">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT34oLzC3Cet0Qbk9Q8XW14GyBACm1eXzJB9V9ekdHtZQ&s=10">
-
-                            <button class="play-btn">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <h3>Young Desires</h3>
-                        <p>Hustinder</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="image-box">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_rllSguWyNiTSvOSYKVi57JvzUk7NFjwTQmH5zitXZQ&s=10">
-
-                            <button class="play-btn">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <h3>Behja</h3>
-                        <p>Parmish Verma</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <div class="image-box">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7sQncJS8SlOjxeztp9Ty88KRQMyVLQDporO-5BYnGEg&s=10">
-
-                            <button class="play-btn">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <h3>Biograpghy</h3>
-                        <p>Arjan Dhillon</p>
-
-                    </div>
-
-
-                    
-
-                </div>
-
-            </section>
-
-
-            <!-- POPULAR ARTISTS -->
-
-            <section>
-
-                <div class="section-header">
-
-                    <h2>Popular artists</h2>
-
-                    <a href="#">Show all</a>
-
-                </div>
-
-
-                <div class="artist-container">
-
-                    <div class="artist-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI6Nm_gP3DrryweprBvAplffriutqjG6bWZ7KMN9rgOQ&s=10">
-
-                        <h3>ARJAN DHILLON</h3>
-
-                        <p>Artist</p>
-
-                    </div>
-
-
-                    <div class="artist-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrdFnHPdq2h8kOhE81NmEevT76OvJa3G6liDGKzJiTA&s=10">
-
-                        <h3>PREM DHILLON</h3>
-
-                        <p>Artist</p>
-
-                    </div>
-
-
-                    <div class="artist-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJaGBj3lWJoD3rH629ggin6a5oMQceoj6rbntEvoyRuQ&s=10">
-
-                        <h3>SIDHU MOSSEWALA</h3>
-
-                        <p>Artist</p>
-
-                    </div>
-
-
-                    <div class="artist-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMOIc5K3zNRUBiT-NvULxg07v5VfoNjkzOqzzVg4vsuw&s=10">
-
-                        <h3>SAABI BHINDER</h3>
-
-                        <p>Artist</p>
-
-                    </div>
-
-
-                    <div class="artist-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnXsbbcFEYw4YnJ2vBunWQFFmfoOfBBL6PVSgJ_2rJfA&s">
-
-                        <h3>DILJIT DOSANJH</h3>
-
-                        <p>Artist</p>
-
-                    </div>
-
-
-                    <div class="artist-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6bnB3rx6z9Hzp41Y-lkA1UF56sBg5nWWzH1bnJqJIwA&s=10">
-
-                        <h3>JORDAN SANDHU</h3>
-
-                        <p>Artist</p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- POPULAR ALBUMS -->
-
-            <section>
-
-                <div class="section-header">
-
-                    <h2>Popular albums and singles</h2>
-
-                    <a href="#">Show all</a>
-
-                </div>
-
-
-                <div class="card-container">
-
-                    <div class="music-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQchqGjPxn0VeecKHD8QBZVCrTeuJnD-15SnbLDnyhz1g&s=10">
-
-                        <h3>Bipolar</h3>
-
-                        <p>Navaan Sandhu</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCLJO-zkPAKOZQWYMh66o5CGdAx2sgAYZeEWCZAFSh4w&s=10">
-                        <h3>Enigma</h3>
-
-                        <p>Arjan Dhillon</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIrB2GngC4BtAqUAXuY4I3UUU28bGslXmuvSQ3Zs8CfA&s=10">
-
-                        <h3>Making Memories</h3>
-
-                        <p>Karan Aujla</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyaYIZcxX1fzQuHxZBMOd4MBrC2KgULXRgSm3rF3eQGA&s=10">
-
-                        <h3>Judaa 2</h3>
-
-                        <p>Amrinder Gill</p>
-
-                    </div>
-
-                    <div class="music-card">
-
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZQyYlbhC6F9_sHnK7-YUR_FC7oconLIvOyG5l1k_2RZKPdDPKbXj85oU&s=10">
-
-                        <h3>Apollo</h3>
-
-                        <p>Dulla</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <img src="data:image/jpeg;base64,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">
-
-                        <h3>Majhestic</h3>
-
-                        <p>Prem Dhillon</p>
-
-                    </div>
-
-
-                    <div class="music-card">
-
-                        <img src="data:image/jpeg;base64,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">
-
-                        <h3>Young G.O.A.T</h3>
-
-                        <p>Cheema Y, Gur Sidhu</p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <section>
-
-                <div class="section-header">
-
-                    <h2>Featured Charts</h2>
-
-                    <a href="#">Show all</a>
-
-                </div>
-
-
-                <div class="chart-container">
-
-                    <div class="chart-card purple">
-                        <h1>Top<br>Songs<br><span>Global</span></h1>
-                        <p>Weekly Music Charts</p>
-                        
-                        <button class="play-btn">
-                            <i class="fa-solid fa-play"></i>
-                        </button>
-                    </div>
-
-
-                    <div class="chart-card red">
-                        <h1>Top<br>Songs<br><span>India</span></h1>
-                        <p>Weekly Music Charts</p>
-                        <button class="play-btn">
-                            <i class="fa-solid fa-play"></i>
-                        </button>
-                    </div>
-
-
-                    <div class="chart-card blue">
-                        <h1>Top 50</h1>
-                        <p>GLOBAL</p>
-                        <button class="play-btn">
-                            <i class="fa-solid fa-play"></i>
-                        </button>
-                    </div>
-
-
-                    <div class="chart-card green">
-                        <h1>Top 50</h1>
-                        <p>INDIA</p>
-                        <button class="play-btn">
-                            <i class="fa-solid fa-play"></i>
-                        </button>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- FOOTER -->
-
-            <footer>
-
-                <div class="footer-column">
-
-                    <h3>Company</h3>
-
-                    <a href="#">About</a>
-                    <a href="#">Jobs</a>
-                    <a href="#">For the Record</a>
-
-                </div>
-
-
-                <div class="footer-column">
-
-                    <h3>Communities</h3>
-
-                    <a href="#">For Artists</a>
-                    <a href="#">Developers</a>
-                    <a href="#">Advertising</a>
-
-                </div>
-
-
-                <div class="footer-column">
-
-                    <h3>Useful links</h3>
-
-                    <a href="#">Support</a>
-                    <a href="#">Free Mobile App</a>
-                    <a href="#">Popular by Country</a>
-
-                </div>
-
-
-                <div class="footer-column">
-
-                    <h3>BeatBox Plans</h3>
-
-                    <a href="#">Premium Standard</a>
-                    <a href="#">Premium Platinum</a>
-                    <a href="#">Premium Student</a>
-
-                </div>
-
-            </footer>
-
-        </main>
-
-    </div>
-
-
-    BOTTOM SIGNUP BAR
-
-    <div class="signup-bar">
-
-        <div>
-            <strong>Preview of BeatBox</strong>
-
-            <p>
-                Sign up to get unlimited songs and podcasts with occasional ads.
-                No credit card needed.
-            </p>
+      <!--SIDEBAR-->
+
+      <aside class="sidebar" aria-label="Your Library">
+        <div class="sidebar-resizer" id="sidebarResizer" title="Drag to resize"></div>
+        <div class="library-header">
+          <div class="lib-title">
+            <button type="button" class="lib-toggle" id="libToggle" aria-expanded="true" aria-label="Collapse Your Library">
+              <i class="fa-solid fa-book-open"></i>
+            </button>
+            <h3>Your Library</h3>
+          </div>
+
+          <!-- Triggers login tooltip prompt -->
+          <button
+            class="create-btn"
+            id="createBtn"
+            onclick="toggleCreateMenu(event)"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Create
+          </button>
         </div>
 
-        <button>
-            Sign up free
-        </button>
+        <!-- CREATE MENU -->
+        <div class="create-menu" id="createMenu" role="menu">
+          <button class="create-item" role="menuitem" onclick="createMenuPick(event, 'playlist')">
+            <span class="ci-icon"><i class="fa-solid fa-music"></i></span>
+            <span>
+              <strong>Playlist</strong>
+              <span class="sub">Create a playlist with songs or episodes</span>
+            </span>
+          </button>
+          <button class="create-item" role="menuitem" onclick="createMenuPick(event, 'blend')">
+            <span class="ci-icon"><i class="fa-solid fa-circle-half-stroke"></i></span>
+            <span>
+              <strong>Blend</strong>
+              <span class="sub">Combine your friends' tastes into a playlist</span>
+            </span>
+          </button>
+          <hr />
+          <button class="create-item" role="menuitem" onclick="createMenuPick(event, 'folder')">
+            <span class="ci-icon"><i class="fa-regular fa-folder"></i></span>
+            <span>
+              <strong>Folder</strong>
+              <span class="sub">Organize your playlists</span>
+            </span>
+          </button>
+        </div>
 
+        <div class="lib-tools" id="libTools" hidden>
+          <div class="lib-chips">
+            <button type="button" class="chip" data-lf="playlists">Playlists</button>
+            <button type="button" class="chip" data-lf="folders">Folders</button>
+          </div>
+          <div class="lib-tools-row">
+            <div class="lib-search">
+              <button type="button" id="libSearchBtn" aria-label="Search in Your Library"><i class="fa-solid fa-magnifying-glass"></i></button>
+              <input type="text" id="libSearch" placeholder="Search in Your Library" aria-label="Search in Your Library" hidden />
+            </div>
+            <button type="button" class="lib-sort" id="libSort"><span id="libSortLabel">Recents</span> <i class="fa-solid fa-list"></i></button>
+          </div>
+        </div>
+
+        <!-- Only this part scrolls -->
+        <div class="side-scroll">
+        <div class="library-list" id="libraryList"></div>
+
+        <!--Playlist Box-->
+
+        <div class="side-box">
+          <h3>Create your first playlist</h3>
+
+          <p>It's easy, we'll help you</p>
+
+          <!-- Triggers login tooltip prompt -->
+          <button onclick="createMenuPick(event, 'playlist')">Create playlist</button>
+        </div>
+
+        <!-- Podcast Box -->
+
+        <div class="side-box">
+          <h3>Let's find some podcasts to follow</h3>
+
+          <p>We'll keep you updated on new episodes</p>
+
+          <button type="button" data-go="podcasts">Browse podcasts</button>
+        </div>
+
+        <!-- Sidebar Footer -->
+
+        </div>
+        <!-- /side-scroll -->
+
+        <div class="side-footer">
+          <div>
+            <a href="info.html?page=legal">Legal</a>
+            <a href="info.html?page=safety">Safety & Privacy Center</a>
+            <a href="info.html?page=privacy">Privacy Policy</a>
+            <a href="info.html?page=cookies">Cookies</a>
+          </div>
+
+          <div>
+            <a href="info.html?page=ads">About Ads</a>
+            <a href="info.html?page=accessibility">Accessibility</a>
+          </div>
+
+          <a href="info.html?page=cookies" class="cookies-solo">Cookies</a>
+
+          <button class="language">
+            <i class="fa-solid fa-globe"></i>
+            English
+          </button>
+        </div>
+      </aside>
+
+      <!-- LOGIN TOOLTIP POPUP -->
+      <div class="tooltip-card" id="loginTooltip" style="display: none">
+        <h3>Create a playlist</h3>
+        <p>Log in to create and share playlists.</p>
+        <div class="tooltip-actions">
+          <button class="not-now-btn" onclick="closeLoginTooltip()">
+            Not now
+          </button>
+          <a href="login.html" class="login-redirect-btn">Log in</a>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+
+      <main class="content" id="homeView">
+        <!-- TRENDING SONGS -->
+
+        <section>
+          <div class="section-header">
+            <h2>Trending songs</h2>
+
+            <a href="#showall/trending">Show all</a>
+          </div>
+
+          <div class="card-container" data-list="trending">
+          </div>
+        </section>
+
+        <!-- POPULAR ARTISTS -->
+
+        <section>
+          <div class="section-header">
+            <h2>Popular artists</h2>
+
+            <a href="#showall/artists">Show all</a>
+          </div>
+
+          <div class="artist-container" data-list="artists">
+          </div>
+        </section>
+
+        <!-- POPULAR ALBUMS -->
+
+        <section>
+          <div class="section-header">
+            <h2>Popular albums and singles</h2>
+
+            <a href="#showall/albums">Show all</a>
+          </div>
+
+          <div class="card-container" data-list="albums">
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header">
+            <h2>Featured Charts</h2>
+
+            <a href="#showall/charts">Show all</a>
+          </div>
+
+          <div class="chart-container" data-list="charts">
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer>
+          <div class="footer-column">
+            <h3>Company</h3>
+
+            <a href="about.html">About</a>
+            <a href="info.html?page=jobs">Jobs</a>
+            <a href="info.html?page=record">For the Record</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>Communities</h3>
+
+            <a href="info.html?page=artists">For Artists</a>
+            <a href="info.html?page=developers">Developers</a>
+            <a href="info.html?page=advertising">Advertising</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>Useful links</h3>
+
+            <a href="support.html">Support</a>
+            <a href="download.html">Free Mobile App</a>
+            <a href="info.html?page=popular">Popular by Country</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>BeatBox Plans</h3>
+
+            <a href="premium.html">Premium Standard</a>
+            <a href="premium.html">Premium Platinum</a>
+            <a href="premium.html">Premium Student</a>
+          </div>
+        </footer>
+      </main>
+
+      <!-- SEARCH VIEW -->
+      <main class="content" id="searchView" hidden>
+        <div class="chips" id="searchChips" hidden>
+          <button type="button" class="chip active" data-filter="all">All</button>
+          <button type="button" class="chip" data-filter="songs">Songs</button>
+          <button type="button" class="chip" data-filter="artists">Artists</button>
+        </div>
+        <div id="searchBody"></div>
+      </main>
+
+      <!-- PAGES (artist, song, chart, playlist, folder, show all) -->
+      <main class="content" id="pageView" hidden></main>
     </div>
 
+    <!-- BOTTOM SIGNUP BAR -->
 
+    <div class="signup-bar">
+      <div>
+        <strong>Preview of BeatBox</strong>
+
+        <p>
+          Sign up to get unlimited songs and podcasts with occasional ads. No
+          credit card needed.
+        </p>
+      </div>
+
+      <button onclick="window.location.href = 'signup.html'">
+        Sign up free
+      </button>
+    </div>
+
+    <!-- NOW PLAYING BAR -->
+    <div class="player-bar" id="playerBar">
+      <div class="pb-track">
+        <img id="pbCover" alt="" />
+        <div class="pb-info">
+          <strong id="pbTitle"></strong>
+          <span id="pbArtist"></span>
+        </div>
+        <button type="button" class="pb-like" id="pbLike" aria-label="Like this song" aria-pressed="false">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+      </div>
+
+      <div class="pb-center">
+        <div class="pb-controls">
+          <button type="button" id="pbShuffle" aria-label="Shuffle" aria-pressed="false">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button type="button" id="pbPrev" aria-label="Previous song">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+          <button type="button" id="pbPlay" class="pb-main" aria-label="Play or pause">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button type="button" id="pbNext" aria-label="Next song">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+          <button type="button" id="pbRepeat" aria-label="Repeat off">
+            <i class="fa-solid fa-repeat"></i>
+          </button>
+        </div>
+        <div class="pb-seek">
+          <span id="pbCur">0:00</span>
+          <input type="range" id="pbSeek" min="0" max="100" step="0.1" value="0" aria-label="Seek" />
+          <span id="pbDur">0:00</span>
+        </div>
+      </div>
+
+      <div class="pb-volume">
+        <button type="button" id="pbQueue" aria-label="Queue"><i class="fa-solid fa-list"></i></button>
+        <button type="button" id="pbMute" aria-label="Mute"><i class="fa-solid fa-volume-high" id="pbVolIcon"></i></button>
+        <input type="range" id="pbVol" min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+      </div>
+    </div>
+
+    <!-- QUEUE PANEL -->
+    <div class="queue-panel" id="queuePanel" hidden>
+      <h3>Queue</h3>
+      <div id="queueBody"></div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="bottom-nav" id="bottomNav" aria-label="Mobile navigation">
+      <button type="button" data-tab="home" class="active"><i class="fa-solid fa-house"></i><span>Home</span></button>
+      <button type="button" data-tab="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+      <button type="button" data-tab="library"><i class="fa-solid fa-book-open"></i><span>Your Library</span></button>
+    </nav>
+
+    <!-- Shared audio element used by every music card -->
+    <audio id="audioPlayer"></audio>
+
+    <script src="songs.js"></script>
+    <script src="auth.js"></script>
     <script src="script.js"></script>
-
-</body>
+    <script src="library.js"></script>
+  </body>
 </html>
