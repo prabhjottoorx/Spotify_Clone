@@ -3,230 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Sign up to BeatBox</title>
-
+    <link rel="stylesheet" href="auth-pages.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #121212;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-        }
-
-        /* Main container */
-        .signup-page {
-            width: 100%;
-            max-width: 430px;
-            margin: 0 auto;
-            padding: 110px 20px 60px;
-        }
-
-        /* BeatBox logo */
-        .beatbox-logo {
-            width: 38px;
-            height: 38px;
-            background: #ffffff;
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            position: relative;
-        }
-
-        .beatbox-logo::before {
-            content: "";
-            position: absolute;
-            width: 23px;
-            height: 8px;
-            border-top: 3px solid #121212;
-            border-radius: 50%;
-            top: 11px;
-            left: 7px;
-            transform: rotate(4deg);
-        }
-
-        .beatbox-logo::after {
-            content: "";
-            position: absolute;
-            width: 19px;
-            height: 7px;
-            border-top: 3px solid #121212;
-            border-radius: 50%;
-            top: 18px;
-            left: 9px;
-            transform: rotate(4deg);
-        }
-
-        /* Heading */
-        h1 {
-            text-align: center;
-            font-size: 42px;
-            line-height: 1.12;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            margin-bottom: 48px;
-        }
-
-        /* Form */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .email-input {
-            width: 100%;
-            height: 57px;
-            padding: 0 14px;
-            background: #121212;
-            color: #ffffff;
-            border: 1px solid #727272;
-            border-radius: 4px;
-            font-size: 17px;
-            outline: none;
-        }
-
-        .email-input::placeholder {
-            color: #b3b3b3;
-        }
-
-        .email-input:focus {
-            border: 2px solid #ffffff;
-        }
-
-        /* Next button */
-        .next-btn {
-            width: 100%;
-            height: 56px;
-            border: none;
-            border-radius: 30px;
-            background: #1ed760;
-            color: #000000;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 2px;
-            transition: transform 0.15s ease;
-        }
-
-        .next-btn:hover {
-            background: #1fdf64;
-            transform: scale(1.02);
-        }
-
-        /* OR */
-        .divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 26px 0 20px;
-        }
-
-        .divider span {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        /* Social buttons */
-        .social-btn {
-            width: 100%;
-            height: 58px;
-            background: transparent;
-            color: #ffffff;
-            border: 1px solid #727272;
-            border-radius: 30px;
-            margin-bottom: 10px;
-            cursor: pointer;
-
-            display: flex;
-            align-items: center;
-            position: relative;
-
-            font-size: 16px;
-            font-weight: 700;
-
-            transition: border-color 0.2s ease,
-                        transform 0.15s ease;
-        }
-
-        .social-btn:hover {
-            border-color: #ffffff;
-            transform: scale(1.01);
-        }
-
-        /* Icons */
-        .icon {
-            position: absolute;
-            left: 31px;
-            width: 25px;
-            text-align: center;
-            font-size: 22px;
-        }
-
-        .phone-icon {
-            font-size: 22px;
-        }
-
-        .google-icon {
-            font-size: 21px;
-            font-weight: 700;
-            color: #4285f4;
-        }
-
-        .apple-icon {
-            font-size: 24px;
-            color: #ffffff;
-        }
-
-        .button-text {
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-
-            .signup-page {
-                padding-top: 60px;
-                max-width: 420px;
-            }
-
-            h1 {
-                font-size: 34px;
-                margin-bottom: 38px;
-            }
-
-            .beatbox-logo {
-                margin-bottom: 22px;
-            }
-        }
-
-        @media (max-width: 350px) {
-
-            .signup-page {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-
-            h1 {
-                font-size: 30px;
-            }
-
-            .social-btn {
-                font-size: 14px;
-            }
-        }
+        :root { --page-pad: 110px 20px 60px; --h1-size: 42px; --h1-ls: -1.5px; --h1-gap: 48px; --page-pad-sm: 60px 20px 60px; --h1-size-sm: 34px; }
     </style>
+    <link rel="stylesheet" href="auth.css" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
 </head>
 
 <body>
@@ -234,8 +17,7 @@
     <main class="signup-page">
 
         <!-- BeatBox Logo -->
-        <div class="Beatbox-logo"></div>
-
+        <img class="beatbox-logo" src="logo.svg" alt="BeatBox" width="38" height="38" />
 
         <!-- Heading -->
         <h1>
@@ -243,71 +25,92 @@
             start listening
         </h1>
 
+        <!-- Signup Form -->
+        <form id="signupForm" novalidate>
+            <div class="form-group">
+                <label for="email">
+                    Email address
+                </label>
+                <input
+                    type="email"
+                    id="email"
+                    class="email-input"
+                    placeholder="name@domain.com"
+                >
+                <div id="errorMsg" class="error-message">Please enter a valid email address.</div>
+            </div>
 
-        <!-- Email -->
-        <div class="form-group">
-
-            <label for="email">
-                Email address
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                class="email-input"
-            >
-
-        </div>
-
-
-        <!-- Next -->
-        <button class="next-btn">
-            Next
-        </button>
-
+            <!-- Next -->
+            <button type="submit" class="next-btn">
+                Next
+            </button>
+        </form>
 
         <!-- OR -->
         <div class="divider">
             <span>or</span>
         </div>
 
-
         <!-- Phone -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialSignup('Phone')">
             <span class="icon phone-icon">▯</span>
-
-            <span class="button-text">
-                Sign up with phone number
-            </span>
-
+            <span class="button-text">Sign up with phone number</span>
         </button>
-
 
         <!-- Google -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialSignup('Google')">
             <span class="icon google-icon">G</span>
-
-            <span class="button-text">
-                Sign up with Google
-            </span>
-
+            <span class="button-text">Sign up with Google</span>
         </button>
-
 
         <!-- Apple -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialSignup('Apple')">
             <span class="icon apple-icon">●</span>
-
-            <span class="button-text">
-                Sign up with Apple
-            </span>
-
+            <span class="button-text">Sign up with Apple</span>
         </button>
+
+        <p style="text-align:center;margin-top:28px;color:#b3b3b3;font-size:15px">
+            Already have an account? <a href="login.html" style="color:#fff;font-weight:700">Log in here</a>
+        </p>
 
     </main>
 
+    <script src="auth.js"></script>
+    <script>
+        const form = document.getElementById('signupForm');
+        const emailInput = document.getElementById('email');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailValue = emailInput.value.trim();
+
+            if (!Auth.validEmail(emailValue)) {
+                errorMsg.textContent = 'Please enter a valid email address.';
+                errorMsg.style.display = 'block';
+                emailInput.style.borderColor = '#e91429';
+                return;
+            }
+            if (Auth.exists(emailValue)) {
+                errorMsg.innerHTML = 'This email is already connected to an account. <a href="login-password.html?email=' + encodeURIComponent(emailValue) + '" style="color:#fff;text-decoration:underline">Log in</a> instead.';
+                errorMsg.style.display = 'block';
+                emailInput.style.borderColor = '#e91429';
+                return;
+            }
+            errorMsg.style.display = 'none';
+            emailInput.style.borderColor = '#1ed760';
+            sessionStorage.setItem('beatboxSignup', JSON.stringify({ email: emailValue }));
+            window.location.href = 'create-password.html';
+        });
+
+        emailInput.addEventListener('input', function() {
+            errorMsg.style.display = 'none';
+            emailInput.style.borderColor = '#727272';
+        });
+
+        function handleSocialSignup(provider) {
+            Auth.socialModal(provider);
+        }
+    </script>
 </body>
 </html>
