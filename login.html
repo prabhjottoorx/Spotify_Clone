@@ -3,250 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Log in - BeatBox</title>
-
+    <link rel="stylesheet" href="auth-pages.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #121212;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-        }
-
-        /* Main Page */
-        .login-page {
-            width: 100%;
-            max-width: 430px;
-            margin: auto;
-            padding: 36px 20px 50px;
-        }
-
-        /* BeatBox Logo */
-        .beatbox-logo {
-            width: 38px;
-            height: 38px;
-            background: #ffffff;
-            border-radius: 50%;
-            margin: 0 auto 22px;
-            position: relative;
-        }
-
-        .BeatBox-logo::before {
-            content: "";
-            position: absolute;
-            width: 23px;
-            height: 8px;
-            border-top: 3px solid #121212;
-            border-radius: 50%;
-            left: 7px;
-            top: 10px;
-            transform: rotate(5deg);
-        }
-
-        .BeatBox-logo::after {
-            content: "";
-            position: absolute;
-            width: 19px;
-            height: 7px;
-            border-top: 3px solid #121212;
-            border-radius: 50%;
-            left: 9px;
-            top: 17px;
-            transform: rotate(5deg);
-        }
-
-        /* Heading */
-        h1 {
-            text-align: center;
-            font-size: 52px;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            font-weight: 800;
-            margin-bottom: 43px;
-        }
-
-        /* Email */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 11px;
-        }
-
-        .email {
-            width: 100%;
-            height: 57px;
-            background: #121212;
-            border: 1px solid #727272;
-            border-radius: 4px;
-            color: #ffffff;
-            padding: 0 15px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .email:focus {
-            border: 2px solid #ffffff;
-        }
-
-        /* Continue Button */
-        .continue-btn {
-            width: 100%;
-            height: 56px;
-            border: none;
-            border-radius: 30px;
-            background: #1ed760;
-            color: #000000;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-
-        .continue-btn:hover {
-            background: #1fdf64;
-            transform: scale(1.02);
-        }
-
-        /* OR */
-        .or {
-            text-align: center;
-            margin: 25px 0 20px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        /* Social Buttons */
-        .social-btn {
-            width: 100%;
-            height: 57px;
-            background: transparent;
-            color: #ffffff;
-            border: 1px solid #727272;
-            border-radius: 30px;
-            margin-bottom: 9px;
-
-            display: flex;
-            align-items: center;
-            position: relative;
-
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-
-            transition: 0.15s;
-        }
-
-        .social-btn:hover {
-            border-color: #ffffff;
-            transform: scale(1.01);
-        }
-
-        .icon {
-            position: absolute;
-            left: 30px;
-            width: 25px;
-            text-align: center;
-        }
-
-        /* Phone icon */
-        .phone {
-            font-size: 22px;
-        }
-
-        /* Google */
-        .google {
-            font-size: 22px;
-            font-weight: 700;
-            color: #4285f4;
-        }
-
-        /* Facebook */
-        .facebook {
-            width: 22px;
-            height: 22px;
-            background: #1877f2;
-            color: #ffffff;
-            border-radius: 50%;
-            font-size: 17px;
-            line-height: 23px;
-            font-weight: bold;
-        }
-
-        /* Apple */
-        .apple {
-            color: #ffffff;
-            font-size: 25px;
-        }
-
-        .button-text {
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Bottom */
-        .signup {
-            text-align: center;
-            margin-top: 77px;
-        }
-
-        .signup p {
-            color: #b3b3b3;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }
-
-        .signup a {
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .signup a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-
-            .login-page {
-                padding: 35px 20px 40px;
-            }
-
-            h1 {
-                font-size: 40px;
-                letter-spacing: -1.5px;
-                margin-bottom: 38px;
-            }
-
-            .signup {
-                margin-top: 60px;
-            }
-        }
-
-        @media (max-width: 360px) {
-
-            h1 {
-                font-size: 34px;
-            }
-
-            .social-btn {
-                font-size: 14px;
-            }
-        }
+        :root { --page-pad: 36px 20px 50px; --logo-gap: 22px; --h1-size: 52px; --h1-ls: -2px; --h1-gap: 43px; --page-pad-sm: 35px 20px 40px; --h1-size-sm: 40px; }
     </style>
+    <link rel="stylesheet" href="auth.css" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
 </head>
 
 <body>
@@ -254,106 +17,97 @@
     <main class="login-page">
 
         <!-- BeatBox Logo -->
-        <div class="beatbox-logo"></div>
-
+        <img class="beatbox-logo" src="logo.svg" alt="BeatBox" width="38" height="38" />
 
         <!-- Heading -->
-        <h1>
-            Welcome back
-        </h1>
+        <h1>Welcome back</h1>
 
+        <!-- Login Form -->
+        <form id="loginForm" novalidate>
+            <div class="form-group">
+                <label for="email">Email or username</label>
+                <input
+                    type="email"
+                    id="email"
+                    class="email"
+                    placeholder="Email or username"
+                    required
+                >
+                <div id="errorMsg" class="error-message">Please enter a valid email address.</div>
+            </div>
 
-        <!-- Email -->
-        <div class="form-group">
-
-            <label for="email">
-                Email
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                class="email"
-                required
-            >
-
-        </div>
-
-
-        <!-- Continue -->
-        <button class="continue-btn">
-            Continue
-        </button>
-
+            <!-- Continue -->
+            <button type="submit" class="continue-btn">
+                Continue
+            </button>
+        </form>
 
         <!-- OR -->
-        <div class="or">
-            or
-        </div>
-
+        <div class="or">or</div>
 
         <!-- Phone -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Phone')">
             <span class="icon phone">▯</span>
-
-            <span class="button-text">
-                Continue with phone number
-            </span>
-
+            <span class="button-text">Continue with phone number</span>
         </button>
-
 
         <!-- Google -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Google')">
             <span class="icon google">G</span>
-
-            <span class="button-text">
-                Continue with Google
-            </span>
-
+            <span class="button-text">Continue with Google</span>
         </button>
-
 
         <!-- Facebook -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Facebook')">
             <span class="icon facebook">f</span>
-
-            <span class="button-text">
-                Continue with Facebook
-            </span>
-
+            <span class="button-text">Continue with Facebook</span>
         </button>
-
 
         <!-- Apple -->
-        <button class="social-btn">
-
+        <button type="button" class="social-btn" onclick="handleSocialLogin('Apple')">
             <span class="icon apple">●</span>
-
-            <span class="button-text">
-                Continue with Apple
-            </span>
-
+            <span class="button-text">Continue with Apple</span>
         </button>
 
-
-        <!-- Sign Up -->
+        <!-- Sign Up Link -->
         <div class="signup">
-
-            <p>
-                Don't have an account?
-            </p>
-
-            <a href="#">
-                Sign up
-            </a>
-
+            <p>Don't have an account?</p>
+            <a href="signup.html">Sign up for BeatBox</a>
         </div>
 
     </main>
 
+    <script src="auth.js"></script>
+    <script>
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailValue = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(emailValue)) {
+                errorMsg.style.display = 'block';
+                emailInput.style.borderColor = '#e91429';
+            } else {
+                errorMsg.style.display = 'none';
+                emailInput.style.borderColor = '#1ed760';
+                
+                // Redirects to password entry step carrying the email parameter
+                window.location.href = `login-password.html?email=${encodeURIComponent(emailValue)}`;
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            errorMsg.style.display = 'none';
+            emailInput.style.borderColor = '#727272';
+        });
+
+        function handleSocialLogin(provider) {
+            Auth.socialModal(provider);
+        }
+    </script>
 </body>
 </html>
