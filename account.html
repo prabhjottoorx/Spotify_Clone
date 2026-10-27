@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Account - BeatBox</title>
+<link rel="stylesheet" href="auth.css" />
+<style>
+.wrap{max-width:980px;margin:0 auto;padding:36px 20px 80px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}
+.top a.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:24px;font-weight:800;letter-spacing:-1px}
+.top .a-logo{margin:0;width:34px;height:34px}
+.top nav a{color:#b3b3b3;text-decoration:none;font-weight:700;margin-left:20px}
+.top nav a:hover{color:#fff}
+.auth-base h1{font-size:clamp(30px,5vw,44px)}
+.panel{background:#1f1f1f;border-radius:14px;padding:26px;margin-bottom:20px}
+.panel h2{font-size:20px;margin-bottom:16px}
+.muted{color:#b3b3b3;font-size:14px;line-height:1.5}
+.btn2{display:inline-block;background:transparent;color:#fff;border:1px solid #727272;border-radius:30px;padding:11px 22px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn2:hover{border-color:#fff}
+.btn2.danger{color:#f15e6c;border-color:#f15e6c}
+.btn2.green{background:#1ed760;color:#000;border-color:#1ed760}
+.auth-base .a-btn.inline{width:auto;padding:0 30px;height:46px;font-size:15px;display:inline-block}
+.toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,20px);background:#fff;color:#000;font-weight:700;padding:12px 24px;border-radius:8px;opacity:0;pointer-events:none;transition:all .2s ease;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.head{display:flex;align-items:center;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+.avatar{width:84px;height:84px;border-radius:50%;background:#1ed760;color:#000;font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.chip2{display:inline-block;background:#2a2a2a;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #333;font-size:15px}
+.kv:last-child{border-bottom:none}
+.kv span:first-child{color:#b3b3b3}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 6px;border-bottom:1px solid #333}
+th{color:#b3b3b3;font-weight:700}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.auth-base .a-input,.auth-base .a-select{height:46px}
+</style>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body class="auth-base">
+<div class="wrap">
+  <div class="top"><a class="brand" href="index.html"><img class="a-logo" src="logo.svg" alt="" width="44" height="44" /><span>BeatBox</span></a>
+    <nav><a href="premium.html">Premium</a><a href="support.html">Support</a><a href="index.html">Web Player</a></nav></div>
+  <div id="app" hidden>
+    <div class="head">
+      <div class="avatar" id="av"></div>
+      <div><h1 style="margin:0" id="hName"></h1><div class="muted" id="hEmail"></div><span class="chip2" id="hPlan"></span></div>
+    </div>
+
+    <div class="grid2">
+      <form class="panel" id="pf" novalidate>
+        <h2>Edit profile</h2>
+        <div class="a-group"><label class="a-label" for="name">Name</label><input class="a-input" id="name" maxlength="40" /><div class="a-err" id="eN"></div></div>
+        <div class="a-group"><label class="a-label" for="dob">Date of birth</label><input class="a-input" id="dob" type="date" /></div>
+        <div class="a-group"><label class="a-label" for="gender">Gender</label>
+          <select class="a-select" id="gender"><option value="">Select</option><option>Man</option><option>Woman</option><option>Non-binary</option><option>Something else</option><option>Prefer not to say</option></select></div>
+        <button class="a-btn inline" type="submit">Save profile</button>
+      </form>
+
+      <div class="panel">
+        <h2>Your plan</h2>
+        <div class="kv"><span>Current plan</span><strong id="pName"></strong></div>
+        <div class="kv" id="rowSince"><span>Member since</span><span id="pSince"></span></div>
+        <div class="kv" id="rowNext"><span id="pNextL">Next billing</span><span id="pNext"></span></div>
+        <div class="kv" id="rowMethod"><span>Payment method</span><span id="pMethod"></span></div>
+        <div class="actions">
+          <a class="btn2 green" href="premium.html" id="chg">Explore Premium</a>
+          <button class="btn2 danger" id="cancel" hidden>Cancel plan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Payment history</h2>
+      <div id="hist"></div>
+    </div>
+
+    <form class="panel" id="pwf" novalidate>
+      <h2>Change password</h2>
+      <p class="muted" id="pwNote" hidden></p>
+      <div id="pwFields">
+        <div class="a-group"><label class="a-label" for="op">Current password</label><input class="a-input" id="op" type="password" autocomplete="current-password" /></div>
+        <div class="a-group"><label class="a-label" for="np">New password</label><input class="a-input" id="np" type="password" autocomplete="new-password" />
+          <p class="a-hint">At least 8 characters, with a letter and a number or symbol.</p></div>
+        <div class="a-group"><label class="a-label" for="cp">Confirm new password</label><input class="a-input" id="cp" type="password" autocomplete="new-password" /></div>
+        <div class="a-err" id="eP"></div>
+        <button class="a-btn inline" type="submit">Update password</button>
+      </div>
+    </form>
+
+    <div class="panel">
+      <h2>Account</h2>
+      <div class="actions" style="margin-top:0">
+        <button class="btn2" id="out">Log out</button>
+        <button class="btn2 danger" id="del">Delete account</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="auth.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+function toast(m) { const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 2600); }
+const money = (n) => "₹" + n.toLocaleString("en-IN");
+const fmtDate = (ts) => new Date(ts).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+const acc = Auth.current();
+if (!acc) { sessionStorage.setItem("beatboxNext", "account.html"); location.replace("login.html"); }
+else render();
+
+function render() {
+  const a = Auth.current();
+  $("app").hidden = false;
+  $("av").textContent = (a.name || a.email).charAt(0).toUpperCase();
+  $("hName").textContent = a.name; $("hEmail").textContent = a.email.endsWith("@phone.beatbox.local") ? "Signed in with phone" : a.email;
+  $("hPlan").textContent = Auth.planName(a);
+  $("name").value = a.name || ""; $("dob").value = a.dob || ""; $("gender").value = a.gender || "";
+  $("pName").textContent = Auth.planName(a);
+  $("pSince").textContent = fmtDate(a.createdAt || Date.now());
+  const paid = a.plan && a.plan !== "free";
+  $("rowNext").hidden = $("rowMethod").hidden = !paid;
+  $("cancel").hidden = !paid;
+  $("chg").textContent = paid ? "Change plan" : "Explore Premium";
+  if (paid) {
+    $("pNextL").textContent = a.recurring ? "Next billing" : "Plan ends";
+    $("pNext").textContent = a.nextBilling ? fmtDate(a.nextBilling) : "-";
+    $("pMethod").textContent = a.planMethod || "-";
+  }
+  const pays = (a.payments || []).slice().reverse();
+  $("hist").innerHTML = pays.length
+    ? "<table><thead><tr><th>Date</th><th>Plan</th><th>Amount</th><th>Receipt</th></tr></thead><tbody>" +
+      pays.map((p) => `<tr><td>${fmtDate(p.date)}</td><td>${p.planName}</td><td>${money(p.amount)}</td><td>${p.id}</td></tr>`).join("") + "</tbody></table>"
+    : '<p class="muted">No payments yet.</p>';
+  const canPw = !!a.hash;
+  $("pwFields").hidden = !canPw; $("pwNote").hidden = canPw;
+  if (!canPw) $("pwNote").textContent = a.provider === "legacy" ? "This account was created before passwords were added. Sign up again with a password to use this." : "You sign in with " + a.provider + ", so there is no BeatBox password to change.";
+}
+
+$("pf").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const n = $("name").value.trim();
+  if (!n) { $("eN").textContent = "Name can’t be empty."; $("eN").classList.add("show"); return; }
+  $("eN").classList.remove("show");
+  Auth.update({ name: n, dob: $("dob").value, gender: $("gender").value });
+  render(); toast("Profile saved");
+});
+
+$("cancel").addEventListener("click", () => {
+  if (!confirm("Cancel your plan and go back to BeatBox Free?")) return;
+  Auth.setPlan("free", { nextBilling: null, recurring: false, planMethod: "" });
+  render(); toast("Your plan has been cancelled");
+});
+
+$("pwf").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const err = $("eP"); err.classList.remove("show");
+  if (!Auth.passwordOk($("np").value)) { err.textContent = "New password needs 8+ characters, a letter and a number or symbol."; err.classList.add("show"); return; }
+  if ($("np").value !== $("cp").value) { err.textContent = "The new passwords don’t match."; err.classList.add("show"); return; }
+  if (!(await Auth.changePassword($("op").value, $("np").value))) { err.textContent = "Your current password is incorrect."; err.classList.add("show"); return; }
+  $("pwf").reset(); toast("Password updated");
+});
+
+$("out").addEventListener("click", () => { if (confirm("Do you want to log out of BeatBox?")) { Auth.logout(); location.href = "index.html"; } });
+$("del").addEventListener("click", () => {
+  const a = Auth.current();
+  const typed = prompt("This permanently deletes your account, playlists and liked songs.\nType DELETE to confirm.");
+  if (typed === "DELETE") { Auth.deleteAccount(); location.href = "index.html"; }
+});
+</script>
+</body>
+</html>

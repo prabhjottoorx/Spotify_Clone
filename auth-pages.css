@@ -1,0 +1,41 @@
+/* Shared styles for login.html and signup.html (each page sets a few --variables) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #121212; color: #ffffff; font-family: Arial, Helvetica, sans-serif; min-height: 100vh; }
+:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.login-page, .signup-page { width: 100%; max-width: 430px; margin: 0 auto; padding: var(--page-pad, 60px 20px 60px); }
+.beatbox-logo { display: block; width: 38px; height: 38px; margin: 0 auto var(--logo-gap, 24px); }
+h1 { text-align: center; font-weight: 800; line-height: 1.12; font-size: var(--h1-size, 42px); letter-spacing: var(--h1-ls, -1.5px); margin-bottom: var(--h1-gap, 45px); }
+
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.email, .email-input { width: 100%; height: 57px; background: #121212; border: 1px solid #727272; border-radius: 4px; color: #ffffff; padding: 0 15px; font-size: 16px; outline: none; }
+.email::placeholder, .email-input::placeholder { color: #b3b3b3; }
+.email:focus, .email-input:focus { border: 2px solid #ffffff; }
+.error-message { color: #f15e6c; font-size: 13px; margin-top: 6px; display: none; }
+
+.continue-btn, .next-btn { width: 100%; height: 56px; border: none; border-radius: 30px; background: #1ed760; color: #000000; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; }
+.continue-btn:hover, .next-btn:hover { background: #1fdf64; transform: scale(1.02); }
+
+.or, .divider { display: flex; justify-content: center; margin: 25px 0 20px; font-size: 16px; font-weight: 600; color: #b3b3b3; }
+.social-btn { width: 100%; height: 57px; background: transparent; color: #ffffff; border: 1px solid #727272; border-radius: 30px; margin-bottom: 9px; display: flex; align-items: center; position: relative; font-size: 16px; font-weight: 700; cursor: pointer; transition: border-color 0.2s ease, transform 0.15s ease; }
+.social-btn:hover { border-color: #ffffff; transform: scale(1.01); }
+.icon { position: absolute; left: 30px; width: 25px; text-align: center; font-size: 22px; }
+.google, .google-icon { font-weight: 700; color: #4285f4; }
+.apple, .apple-icon { color: #ffffff; font-size: 24px; }
+.facebook { width: 22px; height: 22px; background: #1877f2; color: #ffffff; border-radius: 50%; font-size: 17px; line-height: 23px; font-weight: bold; display: flex; align-items: center; justify-content: center; left: 31px; }
+.button-text { width: 100%; text-align: center; }
+
+.signup { text-align: center; margin-top: 77px; }
+.signup p { color: #b3b3b3; font-size: 16px; margin-bottom: 25px; }
+.signup a { color: #ffffff; font-size: 17px; font-weight: 700; text-decoration: none; }
+.signup a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .login-page, .signup-page { max-width: 420px; padding: var(--page-pad-sm, 40px 20px 40px); }
+  h1 { font-size: var(--h1-size-sm, 34px); margin-bottom: 38px; }
+}
+@media (max-width: 360px) {
+  h1 { font-size: 30px; }
+  .social-btn { font-size: 14px; }
+}

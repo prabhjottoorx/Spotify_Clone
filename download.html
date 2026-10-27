@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Download BeatBox</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#121212;color:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+header{height:72px;background:#000;display:flex;align-items:center;gap:28px;padding:0 32px}
+.brand{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:800;letter-spacing:-1px;text-decoration:none}
+.brand img{width:38px;height:38px}
+header nav{margin-left:auto;display:flex;gap:24px}
+header nav a{font-weight:700;font-size:15px;text-decoration:none}
+header nav a:hover{color:#1ed760}
+main{max-width:860px;margin:0 auto;padding:60px 24px 90px}
+h1{font-size:clamp(34px,6vw,60px);letter-spacing:-2px;line-height:1.05;margin-bottom:18px}
+.lead{color:#b3b3b3;font-size:20px;margin-bottom:34px;line-height:1.5}
+p{line-height:1.7;margin-bottom:16px;color:#d6d6d6}
+.btn{display:inline-block;background:#1ed760;color:#000;font-weight:700;border:none;border-radius:30px;padding:14px 30px;font-size:16px;cursor:pointer;text-decoration:none;transition:transform .15s ease}
+.btn:hover{transform:scale(1.04);background:#3be477}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #727272}
+.btn.ghost:hover{border-color:#fff;background:transparent}
+footer{text-align:center;color:#b3b3b3;font-size:13px;padding:30px}
+.toast{position:fixed;left:50%;bottom:40px;transform:translate(-50%,20px);background:#fff;color:#000;font-weight:700;padding:12px 24px;border-radius:8px;opacity:0;pointer-events:none;transition:all .2s ease}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.hero{text-align:center;padding:30px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:40px}
+.card{background:#1f1f1f;border-radius:14px;padding:28px 22px;text-align:center}
+.card i{font-size:42px;margin-bottom:16px;color:#1ed760}
+.card h3{font-size:20px;margin-bottom:6px}
+.card p{font-size:14px;color:#b3b3b3;margin-bottom:18px}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html" aria-label="BeatBox home"><img src="logo.svg" alt="" width="44" height="44" /><span>BeatBox</span></a>
+  <nav><a href="premium.html">Premium</a><a href="support.html">Support</a><a href="download.html">Download</a></nav>
+</header>
+<main>
+  <div class="hero">
+    <h1>Download BeatBox</h1>
+    <p class="lead">Take your music everywhere. Choose your device.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><i class="fa-brands fa-windows"></i><h3>Windows</h3><p>Windows 10 or later</p><button class="btn" data-os="Windows">Download</button></div>
+    <div class="card"><i class="fa-brands fa-apple"></i><h3>Mac</h3><p>macOS 11 or later</p><button class="btn" data-os="Mac">Download</button></div>
+    <div class="card"><i class="fa-brands fa-android"></i><h3>Android</h3><p>Android 8 or later</p><button class="btn" data-os="Android">Get the app</button></div>
+    <div class="card"><i class="fa-brands fa-apple"></i><h3>iPhone &amp; iPad</h3><p>iOS 15 or later</p><button class="btn" data-os="iPhone">Get the app</button></div>
+  </div>
+  <p style="text-align:center;margin-top:44px">Prefer not to install anything? <a href="index.html" style="font-weight:700">Use the web player</a>.</p>
+</main>
+<script>
+const toast = document.createElement("div");
+toast.className = "toast"; toast.setAttribute("role", "status");
+document.body.appendChild(toast);
+document.querySelectorAll("[data-os]").forEach(b => b.addEventListener("click", () => {
+  toast.textContent = "The " + b.dataset.os + " app isn’t available yet. Try the web player!";
+  toast.classList.add("show");
+  clearTimeout(toast._t); toast._t = setTimeout(() => toast.classList.remove("show"), 2800);
+}));
+</script>
+<footer>© 2026 BeatBox · A student project inspired by Spotify</footer>
+</body>
+</html>
